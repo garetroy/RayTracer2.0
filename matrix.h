@@ -29,7 +29,6 @@ struct Matrix{
         return os;
     }
 };
-typedef Matrix<int>    Matrixi;
 typedef Matrix<float>  Matrixf;
 typedef Matrix<double> Matrixd;
 
@@ -75,7 +74,7 @@ Matrix<T>::operator*(const Matrix<T>& in) const
 
         for (int y = 0; y < 4; y++)
             for (int x = 0; x < 4; x++) {
-                double sum = 0.0;
+                T sum = 0;
                     for (int j = 0; j < 4; j++)
                         sum += m[x][j] * in.m[j][y]; 
 			product.m[x][y] = sum;		

@@ -7,8 +7,11 @@
 
 using std::ostream;
 
-#include "matrix.h"
-//#include "vector.h"
+template <typename T>
+struct Vector;
+
+template <typename T>
+struct Matrix;
 
 template <typename T>
 struct Point{
@@ -23,10 +26,10 @@ struct Point{
     Point<T>& operator=(const Point<T>);
 
     inline Point<T>  operator*(const T) const;
- //   inline Point<T>  operator+(const Vector<T>&) const;
+    inline Point<T>  operator+(const Vector<T>&) const;
     inline Point<T>  operator-(void) const;
-//    inline Point<T>  operator-(const Vector<T>&) const;
-//    inline Vector<T> operator-(const Point<T>&) const;
+    inline Point<T>  operator-(const Vector<T>&) const;
+    inline Vector<T> operator-(const Point<T>&) const;
     inline T&        operator[](uint8_t i);
            T    d_squared(const Point<T>&) const;
            T    distance(const Point<T>&) const;
@@ -37,7 +40,6 @@ struct Point{
         return os;
     }
 };
-typedef Point<int>    Pointi;
 typedef Point<float>  Pointf;
 typedef Point<double> Pointd;
 
@@ -66,12 +68,12 @@ Point<T>::operator*(const T a) const
    return Point<T>(x*a, y*a, z*a); 
 }
 
-/*template <typename T>
+template <typename T>
 inline Point<T>
 Point<T>::operator+(const Vector<T>& in) const
 {
     return Point<T>(x+in.x, y+in.y, z+in.z);
-}*/
+}
 
 template <typename T>
 inline Point<T>
@@ -80,7 +82,7 @@ Point<T>::operator-(void) const
     return Point<T>(-x,-y,-z);
 }
 
-/*template <typename T>
+template <typename T>
 inline Point<T>
 Point<T>::operator-(const Vector<T>& in) const
 {
@@ -93,7 +95,6 @@ Point<T>::operator-(const Point<T>& in) const
 {
     return Vector<T>(x-in.x, y-in.y, z-in.z);
 }
-*/
 
 template <typename T>
 inline T&

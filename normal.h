@@ -6,10 +6,6 @@
 #include <ostream>
 #include <cstdint>
 
-#include "matrix.h"
-//#include "vector.h"
-#include "point.h"
-
 using std::ostream;
 
 template <typename T>
@@ -21,16 +17,16 @@ struct Normal{
     Normal(T a) : x(a), y(a), z(a) {}
     Normal(T x, T y, T z) : x(x), y(y), z(z) {}
     Normal(const Normal<T>&);
-   // Normal(const Vector<T>&);
+    Normal(const Vector<T>&);
 
            Normal<T>& operator=(const Normal<T>&);
-    //       Normal<T>& operator=(const Vector<T>&);
+           Normal<T>& operator=(const Vector<T>&);
            Normal<T>& operator=(const Point<T>&);
     inline Normal<T>& operator+=(const Normal<T>&);
     inline Normal<T>  operator-(void) const;
     inline Normal<T>  operator+(const Normal<T>&) const;
     inline Normal<T>  operator*(const T a) const;
-    //inline Normal<T>  operator*(const Vector<T>&) const;
+    inline Normal<T>  operator*(const Vector<T>&) const;
     inline T&         operator[](uint8_t); 
     
     void       normalize(void);
@@ -41,7 +37,6 @@ struct Normal{
         return os;
     }
 };
-typedef Normal<int>    Normali;
 typedef Normal<float>  Normalf;
 typedef Normal<double> Normald;
 
@@ -49,9 +44,9 @@ template <typename T>
 Normal<T>::Normal(const Normal<T>& in) : x(in.x), y(in.y), z(in.z)
 {}
 
-/*template <typename T>
+template <typename T>
 Normal<T>::Normal(const Vector<T>& in) : x(in.x), y(in.y), z(in.z)
-{}*/
+{}
 
 template <typename T>
 Normal<T>&
@@ -67,7 +62,7 @@ Normal<T>::operator=(const Normal<T>& rhs)
     return (*this);
 }
 
-/*typename <typedef T>
+template <typename T>
 Normal<T>&
 Normal<T>::operator=(const Vector<T>& rhs)
 {
@@ -76,7 +71,7 @@ Normal<T>::operator=(const Vector<T>& rhs)
     z = rhs.z;
 
     return (*this);
-}*/
+}
 
 template <typename T>
 Normal<T>&
@@ -141,15 +136,15 @@ operator*(const T p, const Normal<T>& in)
     return Normal<T>(p*in.x, p*in.y, p*in.z);
 }
 
-/*template <typename T>
+template <typename T>
 inline Vector<T>
 operator+(const Vector<T>& v, const Normal<T>& n)
 {
-    return Vector<T>(v+x+n.x, v.y+n.y, v.z+n.z);
+    return Vector<T>(v.x+n.x, v.y+n.y, v.z+n.z);
 }
 
 template <typename T>
-inline Vevtor<T>
+inline Vector<T>
 operator-(const Vector<T>& v, const Normal<T>& n)
 {
     return Vector<T>(v.x-n.x, v.y-n.y, v.z-n.z);
@@ -160,7 +155,7 @@ inline T
 operator*(const Vector<T> v, const Normal<T> n)
 {
     return v.x*n.x + v.y*n.y + v.z*n.z;
-}*/
+}
 
 template <typename T>
 Normal<T>

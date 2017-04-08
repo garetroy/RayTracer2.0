@@ -4,11 +4,10 @@
 #include <math.h>
 #include <iostream>
 
-#include "matrix.h"
-#include "normal.h"
-#include "point.h"
-
 using std::ostream;
+
+template <typename T>
+class Point;
 
 template <typename T>
 struct Vector{
