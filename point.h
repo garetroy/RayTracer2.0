@@ -7,7 +7,7 @@
 
 using std::ostream;
 
-//#include "matrix.h"
+#include "matrix.h"
 //#include "vector.h"
 
 template <typename T>
@@ -123,11 +123,11 @@ operator*(T a, const Point<T>& in)
     return Point<T>(a*in.x,a*in.y,a*in.z);
 }
 
-/*template <typename T>
+template <typename T>
 Point<T>
-operator* (const Matrix& mat, const Point<T>& in)
+operator* (const Matrix<T>& in, const Point<T>& p)
 {
-	return (Point<T>(mat.m[0][0] * p.x + mat.m[0][1] * p.y + mat.m[0][2] * p.z + mat.m[0][3],mat.m[1][0] * p.x + mat.m[1][1] * p.y + mat.m[1][2] * p.z + mat.m[1][3],mat.m[2][0] * p.x + mat.m[2][1] * p.y + mat.m[2][2] * p.z + mat.m[2][3]));
-}*/
+	return (Point<T>(in.m[0][0] * p.x + in.m[0][1] * p.y + in.m[0][2] * p.z + in.m[0][3],in.m[1][0] * p.x + in.m[1][1] * p.y + in.m[1][2] * p.z + in.m[1][3],in.m[2][0] * p.x + in.m[2][1] * p.y + in.m[2][2] * p.z + in.m[2][3]));
+}
 
 #endif
