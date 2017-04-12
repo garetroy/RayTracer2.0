@@ -6,7 +6,17 @@
 #include <ostream>
 #include <cstdint>
 
+
 using std::ostream;
+
+template <typename T>
+struct Vector;
+
+template <typename T>
+struct Point;
+
+template <typename T>
+struct Matrix;
 
 template <typename T>
 struct Normal{

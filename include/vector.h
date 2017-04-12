@@ -4,6 +4,8 @@
 #include <math.h>
 #include <iostream>
 
+#include "normal.h"
+
 using std::ostream;
 
 template <typename T>
