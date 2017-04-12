@@ -180,6 +180,13 @@ Color<T>::average(void) const {
 }
 
 template <typename T>
+Color<T>
+Color<T>::powc(T p) const
+{
+    return Color<T>(pow(r,p),pow(g,p),pow(b,p));
+}
+
+template <typename T>
 inline Color<T>
 operator+(const T a, const Color<T>& c)
 {
@@ -205,13 +212,6 @@ inline Color<T>
 operator/(const T a, const Color<T>& c)
 {
     return Color<T>(a/c.r,a/c.g,a/c.b);
-}
-
-template <typename T>
-Color<T>
-Color<T>::powc(T p) const
-{
-    return Color<T>(pow(r,p),pow(g,p),pow(b,p));
 }
 
 #endif
