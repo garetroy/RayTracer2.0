@@ -39,6 +39,8 @@ struct Color{
         return os;
     } 
 };
+typedef Color<float>  Colorf;
+typedef Color<double> Colord;
 
 template <typename T>
 Color<T>&
