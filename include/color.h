@@ -2,8 +2,10 @@
 #define __RGB_COLOR__
 
 #include <iostream>
+#include <cmath>
 
 using std::ostream;
+using std::abs;
 
 template <typename T>
 struct Color{
@@ -21,8 +23,10 @@ struct Color{
     inline Color<T>& operator/=(const Color<T>&);
     inline Color<T>  operator+(const Color<T>&) const;
     inline Color<T>  operator+(const T) const;
+    inline Color<T>  operator+(void) const;
     inline Color<T>  operator-(const Color<T>&) const;
     inline Color<T>  operator-(const T) const;
+    inline Color<T>  operator-(void) const;
     inline Color<T>  operator*(const Color<T>&) const;
     inline Color<T>  operator*(const T) const;
     inline Color<T>  operator/(const Color<T>&) const;
@@ -116,6 +120,13 @@ Color<T>::operator+(const T in) const
 
 template <typename T>
 inline Color<T>
+Color<T>::operator+(void) const
+{
+    return Color<T>(abs(r),abs(g),abs(b));
+}
+
+template <typename T>
+inline Color<T>
 Color<T>::operator-(const Color<T>& in) const
 {
     return Color<T>(r-in.r,g-in.g,b-in.b);
@@ -126,6 +137,13 @@ inline Color<T>
 Color<T>::operator-(const T in) const
 {
     return Color<T>(r-in,g-in,b-in);
+}
+
+template <typename T>
+inline Color<T>
+Color<T>::operator-(void) const
+{
+    return Color<T>(-r,-g,-b);
 }
 
 template <typename T>
