@@ -90,6 +90,8 @@ Normal<T>::operator=(const Point<T>& rhs)
     x = rhs.x;
     y = rhs.y;
     z = rhs.z;
+    
+    return (*this);
 }
 
 template <typename T>
