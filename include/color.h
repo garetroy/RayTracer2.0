@@ -18,9 +18,13 @@ struct Color{
 
            Color<T>& operator=(const Color<T>&);
     inline Color<T>& operator+=(const Color<T>&);
+    inline Color<T>& operator+=(const T);
     inline Color<T>& operator-=(const Color<T>&);
+    inline Color<T>& operator-=(const T);
     inline Color<T>& operator*=(const Color<T>&);
+    inline Color<T>& operator*=(const T);
     inline Color<T>& operator/=(const Color<T>&);
+    inline Color<T>& operator/=(const T);
     inline Color<T>  operator+(const Color<T>&) const;
     inline Color<T>  operator+(const T) const;
     inline Color<T>  operator+(void) const;
@@ -73,12 +77,34 @@ Color<T>::operator+=(const Color<T>& in)
 
 template <typename T>
 inline Color<T>&
+Color<T>::operator+=(const T a)
+{
+    r += a;
+    g += a;
+    b += a;
+
+    return (*this);
+}
+
+template <typename T>
+inline Color<T>&
 Color<T>::operator-=(const Color<T>& in)
 {
     r -= in.r;
     g -= in.g;
     b -= in.b;
     
+    return (*this);
+}
+
+template <typename T>
+inline Color<T>&
+Color<T>::operator-=(const T a)
+{
+    r -= a;
+    g -= a;
+    b -= a;
+
     return (*this);
 }
 
@@ -95,11 +121,33 @@ Color<T>::operator*=(const Color<T>& in)
 
 template <typename T>
 inline Color<T>&
+Color<T>::operator*=(const T a)
+{
+    r *= a;
+    g *= a;
+    b *= a;
+
+    return (*this);
+}
+
+template <typename T>
+inline Color<T>&
 Color<T>::operator/=(const Color<T>& in)
 {
     r /= in.r;
     g /= in.g;
     b /= in.b;
+
+    return (*this);
+}
+
+template <typename T>
+inline Color<T>&
+Color<T>::operator/=(const T a)
+{
+    r /= a;
+    g /= a;
+    b /= a;
 
     return (*this);
 }
