@@ -2,11 +2,13 @@
 #define _VECTOR_H_
 
 #include <math.h>
+#include <cmath>
 #include <iostream>
 
 #include "normal.h"
 
 using std::ostream;
+using std::abs;
 
 template <typename T>
 class Point;
@@ -27,17 +29,30 @@ struct Vector{
            Vector<T>& operator=(const Normal<T>&);
            Vector<T>& operator=(const Point<T>&);
     inline Vector<T>& operator+=(const Vector<T>&);
-    inline Vector<T>  operator+(const Vector<T>&) const;
+    inline Vector<T>& operator+=(const T);
+    inline Vector<T>& operator-=(const Vector<T>&);
+    inline Vector<T>& operator-=(const T);
+    inline Vector<T>& operator*=(const Vector<T>&);
+    inline Vector<T>& operator*=(const T);
+    inline Vector<T>& operator/=(const Vector<T>&);
+    inline Vector<T>& operator/=(const T);
+    inline Vector<T>  operator+(const T) const;
+    inline Vector<T>  operator+(void) const;
+    inline Vector<T>  operator-(const T) const;
     inline Vector<T>  operator-(void) const;
-    inline Vector<T>  operator-(const Vector<T>&) const;
     inline Vector<T>  operator*(const T) const;
-           Vector<T>  operator/(const T) const;
+    inline Vector<T>  operator/(const T) const;
     inline Vector<T>  operator^(const Vector<T>&) const;
-           double     operator*(const Vector<T>&) const;
+    inline bool       operator==(const Vector<T>&) const;
+    inline T&         operator[](uint8_t);
+           T          operator+(const Vector<T>&) const;
+           T          operator-(const Vector<T>&) const;
+           T          operator*(const Vector<T>&) const;
+           T          operator/(const Vector<T>&) const;
 
            Vector<T>& hat(void);
-    inline double     len_squared(void);
-           double     length(void);
+    inline T          len_squared(void);
+           T          length(void);
            void       normalize(void);
 
     friend ostream &operator<<(ostream& os, const Vector<T> in)
@@ -110,10 +125,102 @@ Vector<T>::operator+=(const Vector<T>& v)
 }
 
 template <typename T>
-inline Vector<T>
-Vector<T>::operator+(const Vector<T>& v) const
+inline Vector<T>&
+Vector<T>::operator+=(const T a)
 {
-    return Vector<T>(x+v.x, y+v.y, z+v.z); 
+    x += a;
+    y += y;
+    z += z;
+
+    return(*this);
+}
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator-=(const Vector<T>& v)
+{
+    x -= v.x;
+    y -= v.y;
+    z -= z.y;
+    
+    return(*this);
+}
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator-=(const T a)
+{
+    x -= a;
+    y -= a;
+    z -= a;
+
+    return(*this);
+} 
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator*=(const Vector<T>& v)
+{
+    x *= v.x;
+    y *= v.y;
+    z *= v.z;
+
+    return(*this);
+}
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator*=(const T a)
+{
+    x *= a;
+    y *= a;
+    z *= a;
+
+    return(*this);
+}
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator/=(const Vector<T>& v) 
+{
+    x /= v.x;
+    y /= v.y;
+    z /= v.z;
+
+    return(*this);
+}  
+
+template <typename T>
+inline Vector<T>&
+Vector<T>::operator/=(const T a)
+{
+    x /= a;
+    y /= a;
+    z /= a;
+    
+    return(*this);
+}
+
+
+template <typename T>
+inline Vector<T>
+Vector<T>::operator+(const T a) const
+{
+    return Vector(x+a,y+a,z+a);
+}
+
+template <typename T>
+inline Vector<T>
+Vector<T>::operator+(void) const
+{
+    return Vector(abs(x),abs(y),abs(z));
+}
+
+template <typename T>
+inline Vector<T>
+Vector<T>::operator-(const T a) const
+{
+    return Vector(x-a,y-a,z-a);
 }
 
 template <typename T>
@@ -121,13 +228,6 @@ inline Vector<T>
 Vector<T>::operator-(void) const
 {
     return Vector(-x, -y, -z);
-}
-
-template <typename T>
-inline Vector<T>
-Vector<T>::operator-(const Vector<T>& v) const
-{
-    return Vector(x-v.x, y-v.y, z-v.z);
 }
 
 template <typename T>
@@ -152,10 +252,45 @@ Vector<T>::operator^(const Vector<T>& v) const
 }
 
 template <typename T>
-double
+inline bool
+Vector<T>::operator==(const Vector<T>& in) const
+{
+    return x == in.x && y == in.y && z == in.z;
+}
+
+template <typename T>
+inline T&
+Vector<T>::operator[](uint8_t i)
+{
+    return (&x)[i];
+}
+
+template <typename T>
+T
+Vector<T>::operator+(const Vector<T>& v) const
+{
+    return (x+v.x + y+v.y + z+v.z); 
+}
+
+template <typename T>
+T
+Vector<T>::operator-(const Vector<T>& v) const
+{
+    return (x-v.x + y-v.y + z-v.z);
+}
+
+template <typename T>
+T
 Vector<T>::operator*(const Vector<T>& v) const
 {
     return (x*v.x + y*v.y + z*v.z);
+}
+
+template <typename T>
+T
+Vector<T>::operator/(const Vector<T>& v) const
+{
+    return (x/v.x + y/v.y + z/v.z);
 }
 
 template <typename T>
@@ -171,14 +306,14 @@ Vector<T>::hat(void)
 }
 
 template <typename T>
-inline double
+inline T
 Vector<T>::len_squared(void)
 {
     return (x*x + y*y + z*z);
 } 
 
 template <typename T>
-double
+T
 Vector<T>::length(void)
 {
     return sqrt(x*x + y*y + z*z);
