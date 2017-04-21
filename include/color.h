@@ -236,7 +236,11 @@ template <typename T>
 inline T&
 Color<T>::operator[](uint8_t i)
 {
-   return (&r)[i];
+    if(i > -1 &&i < 3){
+        return (&r)[i];
+    }
+    
+    return (&r)[0];
 } 
 
 template <typename T>
