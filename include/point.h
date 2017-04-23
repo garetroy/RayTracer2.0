@@ -100,7 +100,10 @@ template <typename T>
 inline T&
 Point<T>::operator[](uint8_t i)
 {
-   return (&x)[i];
+    if(i < 0 || i > 2)
+        return(&x)[i];
+
+    return (&x)[i];
 }
 
 template <typename T>
