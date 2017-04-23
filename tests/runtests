@@ -3,7 +3,11 @@
 #colors tests
 g++ -std=c++11 ./testingfilesrc/color.cpp -o ./testingfilesrc/color.out;
 ./testingfilesrc/color.out > ./results/color.txt;
+g++ -std=c++11 ./testingfilesrc/point.cpp -o ./testingfilesrc/point.out;
+./testingfilesrc/color.out > ./results/color.txt;
+./testingfilesrc/point.out > ./results/point.txt;
 DIFF=$(diff ./baseline/color_out.txt ./results/color.txt)
+DIFF2=$(diff ./baseline/point_out.txt ./results/point.txt)
 
 if [ "$DIFF" != "" ]
 then
@@ -11,5 +15,13 @@ then
 else
     printf "Colors Passed\n"
 fi
+
+if [ "$DIFF2" != "" ]
+then
+    printf "Points failed\n"
+else
+    printf "Points Passed\n"
+fi
+    
 
 rm ./testingfilesrc/color.out;
