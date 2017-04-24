@@ -2,12 +2,14 @@
 
 #colors tests
 g++ -std=c++11 ./testingfilesrc/color.cpp -o ./testingfilesrc/color.out;
-./testingfilesrc/color.out > ./results/color.txt;
 g++ -std=c++11 ./testingfilesrc/point.cpp -o ./testingfilesrc/point.out;
+g++ -std=c++11 ./testingfilesrc/ray.cpp -o ./testingfilesrc/ray.out;
 ./testingfilesrc/color.out > ./results/color.txt;
 ./testingfilesrc/point.out > ./results/point.txt;
+./testingfilesrc/ray.out > ./results/ray.txt;
 DIFF=$(diff ./baseline/color_out.txt ./results/color.txt)
 DIFF2=$(diff ./baseline/point_out.txt ./results/point.txt)
+DIFF3=$(diff ./baseline/ray_out.txt ./results/ray.txt)
 
 if [ "$DIFF" != "" ]
 then
@@ -23,5 +25,13 @@ else
     printf "Points Passed\n"
 fi
     
+if [ "$DIFF3" != "" ]
+then
+    printf "Ray failed\n"
+else
+    printf "Ray passed\n"
+fi
 
-rm ./testingfilesrc/color.out;
+rm ./testingfilesrc/color.out
+rm ./testingfilesrc/point.out
+rm ./testingfilesrc/ray.out
