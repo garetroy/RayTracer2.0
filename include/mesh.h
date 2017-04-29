@@ -13,7 +13,7 @@ using std::ostream;
 template <typename T>
 struct Mesh{
 
-    vector<Point<T>>    verticies;
+    vector<Point<T>>    vertices;
     vector<Normal<T>>   normals;
     vector<T>           v;
     vector<T>           u;
@@ -28,7 +28,7 @@ struct Mesh{
 
     friend ostream &operator<<(ostream& os, const Mesh<T>& in)
     {
-        os << "Mesh: numvert-" << in.numvertices << " numtri-" << in.numtriangles;
+        os << "Mesh: numvert- " << in.numvertices << " numtri- " << in.numtriangles;
         return os;
     }
 };
@@ -37,11 +37,11 @@ typedef Mesh<double> Meshd;
 
 template <typename T>
 Mesh<T>::Mesh(const Mesh<T>& in)
-    :   verticies(in.verticies),
+    :   vertices(in.vertices),
         normals(in.normals),
         u(in.u),
         v(in.v),
-        numvertices(in.numverticies),
+        numvertices(in.numvertices),
         numtriangles(in.numtriangles)
 {}
 
@@ -52,11 +52,11 @@ Mesh<T>::operator=(const Mesh<T>& rhs)
     if(this == &rhs)
         return (*this);
 
-    verticies    = rhs.verticies;
+    vertices    = rhs.vertices;
     normals      = rhs.normals;
     u            = rhs.u;
     v            = rhs.v;
-    numvertices = rhs.numverticies;
+    numvertices = rhs.numvertices;
     numtriangles = rhs.numtriangles;
     
     return (*this);
