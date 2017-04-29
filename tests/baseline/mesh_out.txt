@@ -1,0 +1,3 @@
+Mesh: numvert- 100 numtri- 0
+Mesh: numvert- 100 numtri- 0
+Mesh: numvert- 100 numtri- 0
