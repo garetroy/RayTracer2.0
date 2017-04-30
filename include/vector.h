@@ -62,8 +62,8 @@ struct Vector{
         return os;
     }
 };
-typedef Vector<float>  Vecf;
-typedef Vector<double> Vecd;
+typedef Vector<float>  Vectorf;
+typedef Vector<double> Vectord;
 
 template <typename T>
 Vector<T>::Vector(const Vector<T>& v) : x(v.x), y(v.y), z(v.z)
@@ -141,7 +141,7 @@ Vector<T>::operator-=(const Vector<T>& v)
 {
     x -= v.x;
     y -= v.y;
-    z -= z.y;
+    z -= v.z;
     
     return(*this);
 }
