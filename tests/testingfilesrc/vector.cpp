@@ -53,6 +53,14 @@ int main()
     cout << twos << endl;
     
     //Checking addition
+    Vectord negthrees(-3);
+    Vectord zeros(0);
+    zeros = zeros + 3;
+    negthrees = +negthrees;
+    
+    cout << negthrees << endl;
+    cout << zeros << endl;
+    
     
     return 0;
 }
