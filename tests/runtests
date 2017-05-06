@@ -5,14 +5,17 @@ g++ -std=c++11 ./testingfilesrc/color.cpp -o ./testingfilesrc/color.out;
 g++ -std=c++11 ./testingfilesrc/point.cpp -o ./testingfilesrc/point.out;
 g++ -std=c++11 ./testingfilesrc/ray.cpp -o ./testingfilesrc/ray.out;
 g++ -std=c++11 ./testingfilesrc/mesh.cpp -o ./testingfilesrc/mesh.out;
+g++ -std=c++11 ./testingfilesrc/vector.cpp -o ./testingfilesrc/vector.out;
 ./testingfilesrc/color.out > ./results/color.txt;
 ./testingfilesrc/point.out > ./results/point.txt;
 ./testingfilesrc/ray.out > ./results/ray.txt;
 ./testingfilesrc/mesh.out > ./results/mesh.txt;
+./testingfilesrc/vector.out > ./results/vector.txt;
 DIFF=$(diff ./baseline/color_out.txt ./results/color.txt)
 DIFF2=$(diff ./baseline/point_out.txt ./results/point.txt)
 DIFF3=$(diff ./baseline/ray_out.txt ./results/ray.txt)
 DIFF4=$(diff ./baseline/mesh_out.txt ./results/mesh.txt)
+DIFF5=$(diff ./baseline/vector_out.txt ./results/vector.txt)
 
 if [ "$DIFF" != "" ]
 then
@@ -42,7 +45,15 @@ else
     printf "Mesh passed\n"
 fi
 
+if [ "$DIFF5" != "" ]
+then
+    printf "Vector failed\n"
+else
+    printf "Vector passed\n"
+fi
+
 rm ./testingfilesrc/color.out
 rm ./testingfilesrc/point.out
 rm ./testingfilesrc/ray.out
 rm ./testingfilesrc/mesh.out
+rm ./testingfilesrc/vector.out
