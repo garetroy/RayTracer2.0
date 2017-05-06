@@ -129,8 +129,8 @@ inline Vector<T>&
 Vector<T>::operator+=(const T a)
 {
     x += a;
-    y += y;
-    z += z;
+    y += a;
+    z += a;
 
     return(*this);
 }
@@ -248,6 +248,7 @@ template <typename T>
 inline Vector<T>
 Vector<T>::operator^(const Vector<T>& v) const
 {
+   //This is cross product
    return Vector(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x); 
 }
 
@@ -262,6 +263,9 @@ template <typename T>
 inline T&
 Vector<T>::operator[](uint8_t i)
 {
+    if(i < 0 || i > 2)
+        return (&x)[0];
+
     return (&x)[i];
 }
 
@@ -297,6 +301,7 @@ template <typename T>
 Vector<T>& 
 Vector<T>::hat(void)
 {
+    //Normalization assignment
     T length = sqrt(x*x + y*y + z*z);  
     x /= length;
     y /= length;
@@ -340,7 +345,7 @@ template <typename T>
 Vector<T>
 operator*(const Matrix<T> m, const Vector<T>& v)
 {
-    return (Point3D(m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z,m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z,m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z));
+    return (Vector<T>(m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z,m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z,m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z));
 }
 
 #endif
