@@ -17,9 +17,9 @@ class Object{
     public:
         Object(void);
         Object(const Object<T>& object);
-        //virtual Object<T>* clone(void) const = 0;
-        //virtual bool hit(const Ray<T>& ray, T& tmin,
-         //                ShadeRec<T>& rc) const = 0;
+        virtual Object<T>* clone(void) const = 0;
+        virtual bool hit(const Ray<T>& ray, T& tmin,
+                         ShadeRec<T>& rc) const = 0;
         
         virtual Point<T> sample(void);
         virtual void     addObject(Object<T>* obj);
