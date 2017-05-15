@@ -14,7 +14,7 @@ class Plane : public Object<T>{
     
     public:
         Plane(void);
-        Plane(const Point<T>& p, const Normal<T>& n);
+        Plane(const Point<T> p, const Normal<T>& n);
         Plane(const Plane<T>& plane);
         
                 Plane<T>& operator=(const Plane<T>& rhs);
@@ -48,7 +48,7 @@ Plane<T>::Plane(void) :
     n(0,1,0) {}
 
 template <typename T>
-Plane<T>::Plane(const Point<T>& p, const Normal<T>& n) :
+Plane<T>::Plane(const Point<T> p, const Normal<T>& n) :
     Object<T>(),
     p(p),
     n(n)
