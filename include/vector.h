@@ -336,9 +336,30 @@ Vector<T>::normalize(void)
 
 template <typename T>
 inline Vector<T>
+operator+(const T a, const Vector<T>&v)
+{
+    return Vector<T>(a+v.x, a+v.y, a+v.z);
+}
+
+template <typename T>
+inline Vector<T>
+operator-(const T a, const Vector<T>&v)
+{
+    return Vector<T>(a+v.x, a+v.y, a+v.z);
+}
+
+template <typename T>
+inline Vector<T>
 operator*(const T a, const Vector<T>&v)
 {
     return Vector<T>(a*v.x, a*v.y, a*v.z);
+}
+
+template <typename T>
+inline Vector<T>
+operator/(const T a, const Vector<T>&v)
+{
+    return Vector<T>(a/v.x, a/v.y, a/v.z);
 }
 
 template <typename T>
@@ -347,5 +368,7 @@ operator*(const Matrix<T> m, const Vector<T>& v)
 {
     return (Vector<T>(m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z,m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z,m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z));
 }
+
+
 
 #endif
