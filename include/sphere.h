@@ -7,6 +7,8 @@
 #include "object.h"
 #include "vector.h"
 
+using std::ostream;
+
 template <typename T>
 class Sphere: public Object<T>{
 
@@ -23,7 +25,14 @@ class Sphere: public Object<T>{
         void setCenter(const Point<T>& c);
         void setCenter(const T x, const T y, const T z); 
         void setRadius(const T r);
-
+        
+        friend ostream &operator<<(ostream& os, const Sphere<T>& in)
+        {
+            os << "Sphere: " << std::endl << " " << in.center << std::endl;
+            os << " Radius: " << in.radius;
+        
+            return os;
+        }
     private:
         Point<T> center;
         T        radius;

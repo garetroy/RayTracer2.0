@@ -15,7 +15,7 @@ class World;
 template <typename T>
 struct ShadeRec{
 
-    Material<T>* material;
+    //Material<T>* material;
     Normal<T>    normal;
     World<T>&    w;
     Point<T>     hitpoint;
@@ -38,7 +38,7 @@ typedef ShadeRec<double> ShadeRecd;
 template <typename T>
 ShadeRec<T>::ShadeRec(World<T>& in)
     : hitobject(false),
-      material(nullptr),
+     // material(nullptr),
       hitpoint(),
       normal(),
       ray(),
@@ -53,7 +53,7 @@ ShadeRec<T>::ShadeRec(World<T>& in)
 template <typename T>
 ShadeRec<T>::ShadeRec(const ShadeRec& sr)
     : hitobject(sr.hitobject),
-      material(sr.material),
+      //material(sr.material),
       hitpoint(sr.hitpoint),
       localhitpoint(sr.localhitpoint),
       normal(sr.normal),
@@ -69,10 +69,10 @@ ShadeRec<T>::ShadeRec(const ShadeRec& sr)
 template <typename T>
 ShadeRec<T>::~ShadeRec(void)
 {
-    if(material){
+    /*if(material){
         delete material;
         material = nullptr;
-    }
+    }*/
 }
 
 #endif
