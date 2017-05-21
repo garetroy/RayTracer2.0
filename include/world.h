@@ -30,6 +30,12 @@ struct World{
     void render(void);
     void writeScreen(void);
     void addObject(Object<T>* in);
+
+    friend ostream &operator<<(ostream& os, const World<T>&in)
+    {
+	    os << "World: " << std::endl << " " << in.background << std::endl;
+	    return os;
+    }
 }; 
 typedef World<float>  Worldf;
 typedef World<double> Worldd;
@@ -40,8 +46,7 @@ World<T>::World(void)
     vp.resize(200,200);
 
     background = black; 
-    
-    tracer = new SingleSphere<T>(this); 
+    tracer =  new SingleSphere<T>(this); 
     sphere.setCenter(Point<T>(0.0));
     sphere.setRadius(85.0);
 }
@@ -80,11 +85,14 @@ template <typename T>
 void 
 World<T>::writeScreen(void)
 {
-    vtkImageData *image = NewImage(200,200);
+    vtkImageData *image = vtkImageData::New();
+    image->SetDimensions(200,200,1);
+    image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
     for(int i = 0; i < (vp.h*vp.w); i++){
         buffer[i] = vp.buffer[i][0];
+	std::cerr << vp.buffer[i] << std::endl;
         buffer[i] = vp.buffer[i][1];
         buffer[i] = vp.buffer[i][2];
     }

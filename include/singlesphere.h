@@ -21,7 +21,9 @@ SingleSphere<T>::SingleSphere(void) :
 
 template <typename T>
 SingleSphere<T>::SingleSphere(World<T>* world)
-    : Tracer<T>(world) {}
+{
+     this->world = world;
+}
 
 template <typename T>
 Color<T>
