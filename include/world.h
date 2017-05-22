@@ -5,9 +5,9 @@
 #include <vtkPNGWriter.h>
 #include <vtkImageData.h> 
 
+#include "multipleobjects.h"
 #include "constants.h"
 #include "viewplane.h"
-#include "singlesphere.h"
 #include "normal.h"
 #include "vector.h"
 #include "tracer.h"
@@ -18,18 +18,18 @@
 template <typename T>
 struct World{
     
-    ViewPlane<T>       vp;
-    Color<T>           background;
-    SingleSphere<T>*   tracer;
-    Sphere<T>          sphere;
-//    vector<Object<T>*> objects;
+    ViewPlane<T>        vp;
+    Color<T>            background;
+    MultipleObjects<T>* tracer;
+    vector<Object<T>*> objects;
     
     World(void);
     World(ViewPlane<T>& in);
     
-    void render(void);
-    void writeScreen(void);
-    void addObject(Object<T>* in);
+    void        render(void);
+    void        writeScreen(void);
+    void        addObject(Object<T>*);
+    ShadeRec<T> hitObject(const Ray<T>&);
 
     friend ostream &operator<<(ostream& os, const World<T>&in)
     {
@@ -46,9 +46,7 @@ World<T>::World(void)
     vp.resize(200,200);
 
     background = black; 
-    tracer =  new SingleSphere<T>(this); 
-    sphere.setCenter(Point<T>(0.0));
-    sphere.setRadius(85.0);
+    tracer =  new MultipleObjects<T>(this); 
 }
 
 template <typename T>
@@ -77,8 +75,10 @@ World<T>::render(void)
             ray.origin = Point<T>(x,y,zw);
             color      = tracer->traceRay(ray);
 
-            vp.setPixel(i,j,color); // Something is going on with this set pixel
+            vp.setPixel(i,j,color);
         }
+
+        
 }
 
 template <typename T>
@@ -90,11 +90,10 @@ World<T>::writeScreen(void)
     image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
-    for(int i = 0; i < (vp.h*vp.w)/3; i++){
+    for(int i = 0; i < vp.h*vp.w; i+=3){
         buffer[i]   = (unsigned char)std::min(vp.buffer[i][0]*255,255.0);
         buffer[i+1] = (unsigned char)std::min(vp.buffer[i][1]*255,255.0);
         buffer[i+2] = (unsigned char)std::min(vp.buffer[i][2]*255,255.0);
-        std::cout << "Pixel[" << i << "]: " << buffer[i] << " " << buffer[i+1] << " " << buffer[i+2] << std::endl;
     }
          
     vtkPNGWriter *writer = vtkPNGWriter::New();
@@ -106,11 +105,20 @@ World<T>::writeScreen(void)
 
 }
 
-/*template <typename T>
+template <typename T>
 inline void
 World<T>::addObject(Object<T>* in)
 {
-    objects.push_back(in);
-}*/
+    objects.push_back(&in);
+}
+
+template <typename T>
+ShadeRec<T>
+World<T>::hitObject(const Ray<T>& in)
+{
+    World<T> ne;
+    ShadeRec<T> sr(ne); 
+    return sr;
+}
 
 #endif
