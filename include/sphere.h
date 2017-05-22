@@ -94,44 +94,42 @@ Sphere<T>::operator=(const Sphere<T>& rhs)
 
 template <typename T>
 bool
-Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
+Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const 
 {
-    double    a    = ray.direction * ray.direction;
-    Vector<T> temp = ray.origin - center;
-    double    b    = 2.0 * temp * ray.direction;
-    double    c    = temp * temp - radius * radius;
-    double    disc = b * b - 4.0 * a * c;
+        double          t;
+        Vector<T>       temp    = ray.origin - center;
+        double          a       = ray.direction * ray.direction;
+        double          b       = 2.0 * temp * ray.direction;
+        double          c       = temp * temp - radius * radius;
+        double          disc    = b * b - 4.0 * a * c;
+	
+        if (disc < 0.0)
+	        return false;
+        else {	
+	        double e = sqrt(disc);
+	        double denom = 2.0 * a;
+	        t = (-b - e) / denom;    
 
-    if(disc < 0.0)
-        return false;
-    
-    double e     = sqrt(disc);
-    double denom = 2.0 * a;
-    double t     = (-b - e) / denom;
+	        if (t > kEpsilon) {
+		        tmin               = t;
+                        sr.normal          = t*ray.direction;
+		        sr.normal          = (temp + sr.normal) / radius;
+		        sr.localhitpoint = ray.origin + t * ray.direction;
+		        return true;
+	        } 	
 
-    if(t > kEpsilon){
-        tmin             = t;
-        Vector<T> raytem = ray.direction * t; 
-        raytem           += temp;
-        raytem           = raytem/radius;
-        sr.normal        = raytem;
-        sr.localhitpoint = ray.origin + t * ray.direction;
-        return true;
-    }
-    
-    t = (-b + e) / denom;
-    
-    if(t > kEpsilon){
-        tmin             = t;
-        Vector<T> raytem = ray.direction * t; 
-        raytem           += temp;
-        raytem           = raytem/radius;
-        sr.normal        = raytem;
-        sr.localhitpoint = ray.origin + t * ray.direction;
-        return true;
-    }
-    
-    return false;
+	        t = (-b + e) / denom;    
+
+	        if (t > kEpsilon) {
+		        tmin               = t;
+                        sr.normal          = t*ray.direction;
+		        sr.normal          = (temp + sr.normal) / radius;
+		        sr.localhitpoint = ray.origin + t * ray.direction;
+		        return true;
+	        } 
+        }
+
+        return false;        
 }
 
 template <typename T>
