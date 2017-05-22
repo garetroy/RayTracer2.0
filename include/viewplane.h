@@ -50,6 +50,8 @@ ViewPlane<T>::resize(int _h, int _w)
     if(buffer != nullptr)
         delete [] buffer;
     
+    h = _h;
+    w = _w;
     buffer = new Color<T>[h*w];
 }
 
