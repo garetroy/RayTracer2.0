@@ -72,12 +72,12 @@ World<T>::render(void)
     for(int i = 0; i < vp.w; i++)
         for(int j = 0; j <= vp.h; j++){
             x = vp.s * (j - 0.5 * (vp.h - 1.0));
-            y = vp.s * (i - 0.5 * (vp.w = 1.0));
+            y = vp.s * (i - 0.5 * (vp.w - 1.0));
 
             ray.origin = Point<T>(x,y,zw);
             color      = tracer->traceRay(ray);
 
-            vp.setPixel(i,j,color);
+            vp.setPixel(i,j,color); // Something is going on with this set pixel
         }
 }
 
@@ -90,11 +90,11 @@ World<T>::writeScreen(void)
     image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
-    for(int i = 0; i < (vp.h*vp.w); i++){
-        buffer[i] = vp.buffer[i][0];
-	std::cerr << vp.buffer[i] << std::endl;
-        buffer[i] = vp.buffer[i][1];
-        buffer[i] = vp.buffer[i][2];
+    for(int i = 0; i < (vp.h*vp.w)/3; i++){
+        buffer[i]   = (unsigned char)std::min(vp.buffer[i][0]*255,255.0);
+        buffer[i+1] = (unsigned char)std::min(vp.buffer[i][1]*255,255.0);
+        buffer[i+2] = (unsigned char)std::min(vp.buffer[i][2]*255,255.0);
+        std::cout << "Pixel[" << i << "]: " << buffer[i] << " " << buffer[i+1] << " " << buffer[i+2] << std::endl;
     }
          
     vtkPNGWriter *writer = vtkPNGWriter::New();
