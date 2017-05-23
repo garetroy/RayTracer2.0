@@ -49,7 +49,7 @@ typedef Object<double> Objectd;
 
 template <typename T>
 Object<T>::Object(void) :
-    color(black) {}
+    color(red) {}
 
 template <typename T>
 Object<T>::Object(const Object<T>& object) :

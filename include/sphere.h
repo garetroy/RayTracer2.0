@@ -124,7 +124,7 @@ Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
 		        tmin               = t;
                         sr.normal          = t*ray.direction;
 		        sr.normal          = (temp + sr.normal) / radius;
-		        sr.localhitpoint = ray.origin + t * ray.direction;
+		        sr.localhitpoint   = ray.origin + t * ray.direction;
 		        return true;
 	        } 
         }

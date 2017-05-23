@@ -17,6 +17,11 @@ main()
 {
     Worldd newworld;
     
+    Pointd zeros(0.0);
+    Sphere<double> news(zeros,85.0);
+    
+    newworld.addObject(&news);
     newworld.render();
+    newworld.writeScreen();
     return 1;
 }

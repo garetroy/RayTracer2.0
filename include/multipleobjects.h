@@ -30,10 +30,12 @@ MultipleObjects<T>::traceRay(const Ray<T>& in) const
 {
     ShadeRec<T> sr(this->world->hitObject(in));
 
-    if(sr.hitobject)
+    if(sr.hitobject){
         return sr.color;
-    else
+    }
+    else{
         return this->world->background;
+    }
 }
 
 #endif

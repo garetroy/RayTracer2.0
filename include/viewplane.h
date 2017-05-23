@@ -16,7 +16,7 @@ struct ViewPlane{
         ViewPlane(int, int); 
         
         void resize(int,int);
-        void setPixel(int, int, Color<T>);
+        void setPixel(int, int, Color<T>&);
 };
 
 template <typename T>
@@ -57,12 +57,14 @@ ViewPlane<T>::resize(int _h, int _w)
 
 template <typename T>
 void
-ViewPlane<T>::setPixel(int i, int j, Color<T> in)
+ViewPlane<T>::setPixel(int i, int j, Color<T>& in)
 {
     if(i*j > w*h)
         return;
 
-    buffer[i+j] = in; 
+    for(int k = 0; k < 3; k++)
+        buffer[i+j][k] = in[k]; 
+    
 }
 
 #endif

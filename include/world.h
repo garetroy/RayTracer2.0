@@ -69,6 +69,7 @@ World<T>::render(void)
     ray.direction = Vector<T>(0,0,-1);
     for(int i = 0; i < vp.w; i++)
         for(int j = 0; j <= vp.h; j++){
+
             x = vp.s * (j - 0.5 * (vp.h - 1.0));
             y = vp.s * (i - 0.5 * (vp.w - 1.0));
 
@@ -109,16 +110,27 @@ template <typename T>
 inline void
 World<T>::addObject(Object<T>* in)
 {
-    objects.push_back(&in);
+    objects.push_back(in);
 }
 
 template <typename T>
 ShadeRec<T>
 World<T>::hitObject(const Ray<T>& in)
 {
-    World<T> ne;
-    ShadeRec<T> sr(ne); 
-    return sr;
+    ShadeRec<T> sr(*this); 
+    T t;
+    Normal<T> normal;
+    Point<T> localhitpoint;
+    T tmin              = khugevalue;
+    int num_objects     = objects.size();
+
+    for (int j = 0; j < num_objects; j++)
+            if (objects[j]->hit(in, t, sr) && (t < tmin)) {
+                    sr.hitobject   = true;
+                    tmin           = t;
+                    sr.color       = objects[j]->getColor();
+            }  
+    return sr;   
 }
 
 #endif
