@@ -2,7 +2,7 @@
 #define _CONSTANTS_H_
 
 #include <math.h>
-#include "color.h"
+#include <color.h>
 
 const double TWO_PI     = 2*M_PI;
 const double PI_ON_180  = 0.0174532925199432957; 

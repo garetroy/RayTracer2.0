@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-#include "point.h"
-#include "object.h"
-#include "constants.h"
+#include <point.h>
+#include <object.h>
+#include <constants.h>
 
 using std::ostream;
 

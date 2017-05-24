@@ -4,8 +4,8 @@
 #include <iostream>
 #include <vector>
 
-#include "point.h"
-#include "normal.h"
+#include <point.h>
+#include <normal.h>
 
 using std::vector;
 using std::ostream;

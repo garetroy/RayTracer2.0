@@ -1,9 +1,9 @@
 #ifndef _SINGLESPHERE_H_
 #define _SINGLESPHERE_H_
 
-#include "world.h"
-#include "shaderec.h"
-#include "tracer.h"
+#include <world.h>
+#include <shaderec.h>
+#include <tracer.h>
 
 template <typename T>
 struct SingleSphere : public Tracer<T>{

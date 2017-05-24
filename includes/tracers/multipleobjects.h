@@ -1,9 +1,9 @@
 #ifndef _MULTIPLEOBJECTS_H_
 #define _MULTIPLEOBJECTS_H_
 
-#include "tracer.h"
-#include "world.h"
-#include "color.h"
+#include <tracer.h>
+#include <world.h>
+#include <color.h>
 
 template <typename T>
 class MultipleObjects : public Tracer<T>{

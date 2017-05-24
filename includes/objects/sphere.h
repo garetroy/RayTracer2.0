@@ -4,8 +4,8 @@
 #include <math.h>
 #include <iostream>
 
-#include "object.h"
-#include "vector.h"
+#include <object.h>
+#include <vector.h>
 
 using std::ostream;
 

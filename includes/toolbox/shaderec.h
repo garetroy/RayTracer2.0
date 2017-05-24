@@ -1,11 +1,11 @@
 #ifndef _SHADEREC_H_
 #define _SHADEREC_H_
 
-#include "constants.h"
-#include "point.h"
-#include "normal.h"
-#include "color.h"
-#include "ray.h"
+#include <constants.h>
+#include <point.h>
+#include <normal.h>
+#include <color.h>
+#include <ray.h>
 
 template <typename T>
 class Material;

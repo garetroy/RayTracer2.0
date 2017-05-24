@@ -1,9 +1,9 @@
 #ifndef _TRACER_H_
 #define _TRACER_H_
 
-#include "constants.h"
-#include "ray.h"
-#include "color.h"
+#include <constants.h>
+#include <ray.h>
+#include <color.h>
 
 template <typename T>
 class World;

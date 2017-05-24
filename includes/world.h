@@ -5,15 +5,15 @@
 #include <vtkPNGWriter.h>
 #include <vtkImageData.h> 
 
-#include "multipleobjects.h"
-#include "constants.h"
-#include "viewplane.h"
-#include "normal.h"
-#include "vector.h"
-#include "tracer.h"
-#include "object.h"
-#include "point.h"
-#include "ray.h"
+#include <multipleobjects.h>
+#include <constants.h>
+#include <viewplane.h>
+#include <normal.h>
+#include <vector.h>
+#include <tracer.h>
+#include <object.h>
+#include <point.h>
+#include <ray.h>
 
 template <typename T>
 struct World{

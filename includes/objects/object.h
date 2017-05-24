@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-#include "ray.h"
-#include "bbox.h"
-#include "color.h"
-#include "shaderec.h"
-#include "constants.h"
+#include <ray.h>
+#include <bbox.h>
+#include <color.h>
+#include <shaderec.h>
+#include <constants.h>
 
 using std::ostream;
 
@@ -124,4 +124,3 @@ Object<T>::operator= (const Object<T>& rhs)
 
 
 #endif
-

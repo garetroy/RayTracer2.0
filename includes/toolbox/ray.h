@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "point.h"
-#include "vector.h"
+#include <point.h>
+#include <vector.h>
 
 using std::ostream;
 

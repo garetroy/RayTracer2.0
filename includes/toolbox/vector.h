@@ -5,7 +5,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "normal.h"
+#include <normal.h>
 
 using std::ostream;
 using std::abs;
