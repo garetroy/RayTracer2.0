@@ -31,11 +31,12 @@ SingleSphere<T>::traceRay(const Ray<T>& ray) const
 {
     ShadeRec<T> sr(*world);
     T           t;
-    
-    if(world->sphere.hit(ray,t,sr))
+
+    if(world->sphere.hit(ray,t,sr)){
         return red;
-    else
+    }else{
         return black;
+    }
 }
 
 #endif

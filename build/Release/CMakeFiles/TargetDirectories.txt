@@ -1,0 +1,3 @@
+/home/groberts/Projects/C-Bed/build/Release/CMakeFiles/rebuild_cache.dir
+/home/groberts/Projects/C-Bed/build/Release/CMakeFiles/edit_cache.dir
+/home/groberts/Projects/C-Bed/build/Release/CMakeFiles/raytracer.dir

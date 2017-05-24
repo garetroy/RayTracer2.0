@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "ray.h"
-#include "point.h"
+#include <ray.h>
+#include <point.h>
 
 using std::ostream;
 

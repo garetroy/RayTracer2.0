@@ -1,0 +1,4 @@
+Scanning dependencies of target raytracer
+[ 50%] Building CXX object CMakeFiles/raytracer.dir/raytracer.cxx.o
+[100%] Linking CXX executable /home/groberts/Projects/C-Bed/build/raytracer_Debug
+[100%] Built target raytracer
