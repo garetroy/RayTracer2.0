@@ -59,11 +59,11 @@ template <typename T>
 void
 ViewPlane<T>::setPixel(int i, int j, Color<T>& in)
 {
-    if(i*j > w*h)
+    if(i+j*w > w*h)
         return;
 
     for(int k = 0; k < 3; k++)
-        buffer[i+j][k] = in[k]; 
+        buffer[(w*j+i)][k] = std::min(255.0,in[k]*255.0); 
     
 }
 

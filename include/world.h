@@ -78,8 +78,6 @@ World<T>::render(void)
 
             vp.setPixel(i,j,color);
         }
-
-        
 }
 
 template <typename T>
@@ -91,10 +89,10 @@ World<T>::writeScreen(void)
     image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
-    for(int i = 0; i < vp.h*vp.w; i+=3){
-        buffer[i]   = (unsigned char)std::min(vp.buffer[i][0]*255,255.0);
-        buffer[i+1] = (unsigned char)std::min(vp.buffer[i][1]*255,255.0);
-        buffer[i+2] = (unsigned char)std::min(vp.buffer[i][2]*255,255.0);
+    for(int i = 0; i < vp.h*vp.w; i++){
+        buffer[3*i]     = (unsigned char)vp.buffer[i][0];
+        buffer[3*i+1]   = (unsigned char)vp.buffer[i][1];
+        buffer[3*i+2]   = (unsigned char)vp.buffer[i][2];
     }
          
     vtkPNGWriter *writer = vtkPNGWriter::New();
@@ -119,8 +117,6 @@ World<T>::hitObject(const Ray<T>& in)
 {
     ShadeRec<T> sr(*this); 
     T t;
-    Normal<T> normal;
-    Point<T> localhitpoint;
     T tmin              = khugevalue;
     int num_objects     = objects.size();
 
