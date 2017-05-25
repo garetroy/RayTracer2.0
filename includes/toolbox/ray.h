@@ -34,12 +34,12 @@ Ray<T>&
 Ray<T>::operator=(const Ray<T>& rhs)
 {
     if(this == &rhs)
-        return (*this);
+        return *this;
     
     origin    = rhs.origin;
     direction = rhs.direction;
 
-    return (*this);
+    return *this;
 }
 
 #endif

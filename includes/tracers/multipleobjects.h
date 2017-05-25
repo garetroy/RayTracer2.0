@@ -9,11 +9,11 @@ template <typename T>
 class MultipleObjects : public Tracer<T>{
 
     public:
-        
-        MultipleObjects(void);
         MultipleObjects(World<T>*);
-        
         virtual Color<T> traceRay(const Ray<T>&) const;
+
+    private:
+        MultipleObjects(void);
 };
 
 template <typename T>
@@ -30,12 +30,10 @@ MultipleObjects<T>::traceRay(const Ray<T>& in) const
 {
     ShadeRec<T> sr(this->world->hitObject(in));
 
-    if(sr.hitobject){
+    if(sr.hitobject)
         return sr.color;
-    }
-    else{
-        return this->world->background;
-    }
+
+    return this->world->background;
 }
 
 #endif

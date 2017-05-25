@@ -36,7 +36,7 @@ struct Normal{
     inline Normal<T>  operator-(void) const;
     inline Normal<T>  operator+(const Normal<T>&) const;
     inline Normal<T>  operator*(const T a) const;
-    inline Normal<T>  operator*(const Vector<T>&) const;
+    inline T          operator*(const Vector<T>&) const;
     inline T&         operator[](uint8_t); 
     
     void       normalize(void);
@@ -124,6 +124,13 @@ inline Normal<T>
 Normal<T>::operator*(const T a) const 
 {
     return Normal<T>(x*a, y*a, z*a);
+}
+
+template <typename T>
+inline T
+Normal<T>::operator*(const Vector<T>& in) const 
+{
+    return (x*in.x + y*in.y + z*in.z);
 }
 
 template <typename T>

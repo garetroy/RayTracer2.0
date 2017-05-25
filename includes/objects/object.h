@@ -122,5 +122,4 @@ Object<T>::operator= (const Object<T>& rhs)
     return *this;
 }
 
-
 #endif

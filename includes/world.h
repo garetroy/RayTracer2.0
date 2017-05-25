@@ -11,7 +11,7 @@
 #include <normal.h>
 #include <vector.h>
 #include <tracer.h>
-#include <object.h>
+#include <object.h> 
 #include <point.h>
 #include <ray.h>
 
@@ -65,17 +65,17 @@ World<T>::render(void)
     T        zw, x, y;
     
     zw = 100.0;
-
+    
     ray.direction = Vector<T>(0,0,-1);
     for(int i = 0; i < vp.w; i++)
-        for(int j = 0; j <= vp.h; j++){
+        for(int j = 0; j < vp.h; j++){
 
             x = vp.s * (j - 0.5 * (vp.h - 1.0));
             y = vp.s * (i - 0.5 * (vp.w - 1.0));
 
             ray.origin = Point<T>(x,y,zw);
             color      = tracer->traceRay(ray);
-
+            
             vp.setPixel(i,j,color);
         }
 }
@@ -119,13 +119,13 @@ World<T>::hitObject(const Ray<T>& in)
     T t;
     T tmin              = khugevalue;
     int num_objects     = objects.size();
-
     for (int j = 0; j < num_objects; j++)
             if (objects[j]->hit(in, t, sr) && (t < tmin)) {
                     sr.hitobject   = true;
                     tmin           = t;
                     sr.color       = objects[j]->getColor();
             }  
+
     return sr;   
 }
 

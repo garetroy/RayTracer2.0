@@ -112,8 +112,7 @@ Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
 
 	        if (t > kEpsilon) {
 		        tmin               = t;
-                        sr.normal          = t*ray.direction;
-		        sr.normal          = (temp + sr.normal) / radius;
+		        sr.normal          = (temp + t*ray.direction) / radius;
 		        sr.localhitpoint = ray.origin + t * ray.direction;
 		        return true;
 	        } 	
@@ -122,8 +121,7 @@ Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
 
 	        if (t > kEpsilon) {
 		        tmin               = t;
-                        sr.normal          = t*ray.direction;
-		        sr.normal          = (temp + sr.normal) / radius;
+		        sr.normal          = (temp + t*ray.direction) / radius;
 		        sr.localhitpoint   = ray.origin + t * ray.direction;
 		        return true;
 	        } 
