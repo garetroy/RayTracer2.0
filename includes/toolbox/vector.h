@@ -29,29 +29,26 @@ struct Vector{
            Vector<T>& operator=(const Normal<T>&);
            Vector<T>& operator=(const Point<T>&);
     inline Vector<T>& operator+=(const Vector<T>&);
-    //inline Vector<T>& operator+=(const T);
-    //inline Vector<T>& operator-=(const Vector<T>&);
-    //inline Vector<T>& operator-=(const T);
-    //inline Vector<T>& operator*=(const Vector<T>&);
-    //inline Vector<T>& operator*=(const T);
-    //inline Vector<T>& operator/=(const Vector<T>&);
-    //inline Vector<T>& operator/=(const T);
-    //inline Vector<T>  operator+(const T) const;
-    //inline Vector<T>  operator+(void) const;
-    //inline Vector<T>  operator-(const T) const;
+    inline Vector<T>& operator+=(const T);
+    inline Vector<T>& operator-=(const Vector<T>&);
+    inline Vector<T>& operator-=(const T);
+    inline Vector<T>& operator*=(const Vector<T>&);
+    inline Vector<T>& operator*=(const T);
+    inline Vector<T>& operator/=(const Vector<T>&);
+    inline Vector<T>& operator/=(const T);
+    inline Vector<T>  operator+(const T) const;
+    inline Vector<T>  operator+(void) const;
+    inline Vector<T>  operator-(const T) const;
     inline Vector<T>  operator+(const Vector<T>&) const;
     inline Vector<T>  operator-(const Vector<T>&) const;
     inline Vector<T>  operator-(void) const;
     inline Vector<T>  operator*(const T) const;
     inline Vector<T>  operator/(const T) const;
-    //inline Vector<T>  operator/(const T) const;
     inline Vector<T>  operator^(const Vector<T>&) const;
     inline bool       operator==(const Vector<T>&) const;
     inline T&         operator[](uint8_t);
-    //       T          operator+(const Vector<T>&) const;
-    //       T          operator-(const Vector<T>&) const;
-             T          operator*(const Vector<T>&) const;
-    //       T          operator/(const Vector<T>&) const;
+    T          operator*(const Vector<T>&) const;
+    T          operator/(const Vector<T>&) const;
 
            Vector<T>& hat(void);
     inline T          len_squared(void);
@@ -127,7 +124,7 @@ Vector<T>::operator+=(const Vector<T>& v)
     return(*this);
 }
 
-/*template <typename T>
+template <typename T>
 inline Vector<T>&
 Vector<T>::operator+=(const T a)
 {
@@ -207,17 +204,10 @@ Vector<T>::operator/=(const T a)
 
 template <typename T>
 inline Vector<T>
-Vector<T>::operator+(const T a) const
-{
-    return Vector(x+a,y+a,z+a);
-}
-
-template <typename T>
-inline Vector<T>
 Vector<T>::operator+(void) const
 {
     return Vector(abs(x),abs(y),abs(z));
-}*/
+}
 
 template <typename T>
 inline Vector<T>
@@ -233,13 +223,12 @@ Vector<T>::operator-(const Vector<T>& in) const
     return Vector<T>(x-in.x,y-in.y,z-in.z); 
 }
 
-/*template <typename T>
+template <typename T>
 inline Vector<T>
 Vector<T>::operator-(const T a) const
 {
     return Vector(x-a,y-a,z-a);
 }
-*/
 
 template <typename T>
 inline Vector<T>
@@ -287,20 +276,6 @@ Vector<T>::operator[](uint8_t i)
     return (&x)[i];
 }
 
-/*template <typename T>
-T
-Vector<T>::operator+(const Vector<T>& v) const
-{
-    return (x+v.x + y+v.y + z+v.z); 
-}
-
-template <typename T>
-T
-Vector<T>::operator-(const Vector<T>& v) const
-{
-    return (x-v.x + y-v.y + z-v.z);
-}
-*/
 template <typename T>
 T
 Vector<T>::operator*(const Vector<T>& v) const
@@ -308,14 +283,12 @@ Vector<T>::operator*(const Vector<T>& v) const
     return (x*v.x + y*v.y + z*v.z);
 }
 
-/*
 template <typename T>
 T
 Vector<T>::operator/(const Vector<T>& v) const
 {
     return (x/v.x + y/v.y + z/v.z);
 }
-*/
 
 template <typename T>
 Vector<T>& 
@@ -388,7 +361,4 @@ operator*(const Matrix<T> m, const Vector<T>& v)
 {
     return (Vector<T>(m.m[0][0] * v.x + m.m[0][1] * v.y + m.m[0][2] * v.z,m.m[1][0] * v.x + m.m[1][1] * v.y + m.m[1][2] * v.z,m.m[2][0] * v.x + m.m[2][1] * v.y + m.m[2][2] * v.z));
 }
-
-
-
 #endif

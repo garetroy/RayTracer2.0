@@ -14,17 +14,17 @@ class Sphere: public Object<T>{
 
     public:
         Sphere(void);
-        Sphere(Point<T>& c, T r);
-        Sphere(const Sphere<T>& rhs);
+        Sphere(Point<T>&, T);
+        Sphere(const Sphere<T>&);
         
         virtual Sphere<T>* clone(void) const;
-                Sphere<T>& operator=(const Sphere<T>& sphere);
-        virtual bool hit(const Ray<T>& ray, T& t, ShadeRec<T>& s) const;
+                Sphere<T>& operator=(const Sphere<T>&);
+        virtual bool hit(const Ray<T>&, T&, ShadeRec<T>&) const;
 
         //Getter Setters
-        void setCenter(const Point<T>& c);
-        void setCenter(const T x, const T y, const T z); 
-        void setRadius(const T r);
+        void setCenter(const Point<T>&);
+        void setCenter(const T, const T, const T); 
+        void setRadius(const T);
         
         friend ostream &operator<<(ostream& os, const Sphere<T>& in)
         {
