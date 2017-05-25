@@ -18,6 +18,7 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/objects)
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/toolbox)
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/tracers)
+INCLUDE_DIRECTORIES(${INCLUDE_DIR}/samplers)
 
 # Setup project source compilation
 ADD_EXECUTABLE(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.${PROJ_EXT}")
@@ -31,7 +32,7 @@ ELSE ()
 ENDIF ()
 
 # Enable this if VTK is needed
-SET(VTK_DIR "/home/groberts/Projects/RayTracer2.0/VTK-6.3.0") 
+SET(VTK_DIR "/home/groberts/Projects/RayTracer2.0/VTK-6.3.0")
 FIND_PACKAGE(VTK REQUIRED)
 INCLUDE(${VTK_USE_FILE})
 
