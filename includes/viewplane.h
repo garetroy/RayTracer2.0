@@ -24,6 +24,7 @@ ViewPlane<T>::ViewPlane(void)
 {
     h = 0;
     w = 0;
+    s = 1;
     
     pixelSize = 1.0;
     gamma     = 1.0;

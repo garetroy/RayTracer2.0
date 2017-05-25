@@ -19,6 +19,7 @@ main()
     
     Pointd zeros(0.0);
     Sphere<double> news(zeros,85.0);
+    news.setColor(Color<double>(1.0,0.3,0.12));
     
     newworld.addObject(&news);
     newworld.render();
