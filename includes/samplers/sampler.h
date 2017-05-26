@@ -24,6 +24,7 @@ class Sampler{
 
                 int  getNumSamples(void); 
                 void mapSamplesToUnitDisk(void);
+                void mapSamplesToHemisphere(const T);
     
     protected:
         int              numsamples;
@@ -31,6 +32,7 @@ class Sampler{
         int              jump;
         vector<Point<T>> samples;
         vector<Point<T>> disksamples;
+        vector<Point<T>> hemispheresamples;
         vector<int>      shuffledindices;
         unsigned long    count;
 };
@@ -174,6 +176,27 @@ Sampler<T>::mapSamplesToUnitDisk(void)
     }
     
     samples.erase(samples.begin(), samples.end());
+}
+
+template <typename T>
+void
+Sampler<T>::mapSamplesToHemisphere(const T e)
+{
+    int size = samples.size();
+    
+    hemispheresamples.reserve(numsamples*numsets);
+    
+    for(int i = 0; i < size; i++){
+        T cos_phi = cos(2.0 * M_PI * samples[i].x);
+        T sin_phi = sin(2.0 * M_PI * samples[i].y);
+        T cos_the = pow((1.0-samples[i].y),(1.0/(e+1.0)));
+        T sin_the = sqrt(1.0 - cos_the * cos_the);
+        T pu      = sin_the * cos_phi;
+        T pv      = sin_the * sin_phi;
+        T pw      = cos_the;
+
+        hemispheresamples.push_back(Point<T>(pu,pv,pw));
+    }
 }
 
 #endif
