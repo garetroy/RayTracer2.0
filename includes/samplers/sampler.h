@@ -22,13 +22,15 @@ class Sampler{
                 Sampler<T>& operator=(const Sampler<T>&); 
         virtual Sampler<T>* clone(void) const = 0;
 
-                int getNumSamples(void); 
+                int  getNumSamples(void); 
+                void mapSamplesToUnitDisk(void);
     
     protected:
         int              numsamples;
         int              numsets;
         int              jump;
         vector<Point<T>> samples;
+        vector<Point<T>> disksamples;
         vector<int>      shuffledindices;
         unsigned long    count;
 };
@@ -129,4 +131,49 @@ Sampler<T>::getNumSamples(void)
 {
     return numsamples;
 } 
+
+template <typename T>
+void
+Sampler<T>::mapSamplesToUnitDisk(void)
+{
+    int size = samples.size();
+    T   r, phi;
+    Point<T> sp;
+
+    disksamples.reserve(size);
+
+    for(int i = 0; i < size; i++){
+        
+        sp.x = 2.0 * samples[i].x - 1.0;
+        sp.y = 2.0 * samples[i].j - 1.0;
+
+        if(sp.x > -sp.y)
+            if(sp.x > sp.y){
+                r   = sp.x;
+                phi = sp.y / sp.x;
+            } else {
+                r   = sp.y;
+                phi = 2 - sp.x / sp.y;
+            }
+        else
+            if(sp.x < sp.y){
+                r   = -sp.x;
+                phi = 4 + sp.y/sp.x;
+            } else {
+                r = -sp.y;
+                if(sp.y != 0.0)
+                    phi = 6 - sp.x / sp.y;
+                else
+                    phi = 0.0;
+            } 
+
+        phi *= M_PI/4.0;
+        
+        disksamples[i].x = r * cos(phi);
+        disksamples[i].y = r * sin(phi);
+    }
+    
+    samples.erase(samples.begin(), samples.end());
+}
+
 #endif
