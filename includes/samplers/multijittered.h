@@ -2,6 +2,7 @@
 #define _MULTI_JITTERED_H_
 
 #include <sampler.h>
+#include <math.h>
 
 template <typename T>
 class MultiJittered: public Sampler<T>{
@@ -79,8 +80,10 @@ MultiJittered<T>::generateSamples(void)
     for(int p = 0; p < this->numsets; p++)
         for(int i = 0; i < n; i++)
             for(int j = 0; j < n; j++){
-                this->samples[i*n+j+p * this->numsamples].x = (i*n+j) * subcellwidth + (T)rand(0,subcellwidth);
-                this->samples[i*n+j+p * this->numsamples].y = (i*n+j) * subcellwidth + (T)rand(0,subcellwidth);
+                T rand1 = (T)fmod((T)rand(),(subcellwidth+1));
+                T rand2 = (T)fmod((T)rand(),(subcellwidth+1));
+                this->samples[i*n+j+p * this->numsamples].x = (i*n+j) * subcellwidth + rand1;
+                this->samples[i*n+j+p * this->numsamples].y = (i*n+j) * subcellwidth + rand2;
             }
 
     //Shuffle x

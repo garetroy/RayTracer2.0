@@ -7,6 +7,8 @@
 
 #include <multipleobjects.h>
 #include <sampler.h>
+#include <multijittered.h>
+#include <regular.h>
 #include <jittered.h>
 #include <constants.h>
 #include <viewplane.h>
@@ -46,7 +48,8 @@ template <typename T>
 World<T>::World(void)
 {
     vp.resize(400,400);
-    vp.setSampler(new Jittered<T>(25));
+    //vp.setSampler(new Jittered<T>(25));
+    vp.setSamples(25);
 
     background = black; 
     tracer =  new MultipleObjects<T>(this); 

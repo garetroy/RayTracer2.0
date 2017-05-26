@@ -19,7 +19,7 @@ struct ViewPlane{
         void resize(int,int);
         void setPixel(int, int, Color<T>&);
         void setSampler(Sampler<T>*);
-//        void setSamples(Sampler<T>&);
+        void setSamples(const int);
 };
 
 template <typename T>
@@ -74,18 +74,13 @@ template <typename T>
 void
 ViewPlane<T>::setSampler(Sampler<T>* sp)
 {
-    //if(sampler != nullptr){
-        //delete sampler;
-        //sampler = nullptr;
-    //}
-    
     numsamples = sp->getNumSamples();
     sampler = sp;
 }
 
-/*template <typename T>
+template <typename T>
 void
-ViewPlant<T>::setSamples(const int n)
+ViewPlane<T>::setSamples(const int n)
 {
     numsamples = n;
     
@@ -95,9 +90,9 @@ ViewPlant<T>::setSamples(const int n)
     }
     
     if(numsamples > 1)
-        sampler = new MultiJittered(numsamples);
+        sampler = new MultiJittered<T>(numsamples);
     else
-        sampler = new Regular(1);
-}*/
+        sampler = new Regular<T>(1);
+}
 
 #endif
