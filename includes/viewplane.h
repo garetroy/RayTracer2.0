@@ -6,10 +6,9 @@ struct ViewPlane{
         int h;
         int w;
         int numsamples;
-        T   s;
         T   gamma; 
-        T   invGamma;
-        T   pixelSize;
+        T   invgamma;
+        T   pixelsize;
         
         Color<T>*   buffer;
         Sampler<T>* sampler;
@@ -28,9 +27,8 @@ ViewPlane<T>::ViewPlane(void)
 {
     h = 0;
     w = 0;
-    s = 1;
     
-    pixelSize = 1.0;
+    pixelsize = 1.0;
     gamma     = 1.0;
 
     buffer = nullptr;
@@ -42,7 +40,7 @@ ViewPlane<T>::ViewPlane(int _h, int _w)
     h = _h;
     w = _w;
 
-    pixelSize  = 1.0;
+    pixelsize  = 1.0;
     gamma      = 1.0; 
     
     buffer = new Color<T>[h*w];
@@ -76,10 +74,10 @@ template <typename T>
 void
 ViewPlane<T>::setSampler(Sampler<T>* sp)
 {
-    if(sampler){
-        delete sampler;
-        sampler = nullptr;
-    }
+    //if(sampler != nullptr){
+        //delete sampler;
+        //sampler = nullptr;
+    //}
     
     numsamples = sp->getNumSamples();
     sampler = sp;

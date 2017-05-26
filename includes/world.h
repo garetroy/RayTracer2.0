@@ -76,14 +76,13 @@ World<T>::render(void)
         for(int j = 0; j < vp.h; j++){
             color = black;
 
-            for(int k = 0; k < vp.numsamples; j++){
+            for(int k = 0; k < vp.numsamples; k++){
                 sp = vp.sampler->sampleUnitSquare();
-                pp.x = vp.s * (j - 0.5 * vp.h + sp.x);
-                pp.y = vp.s * (i - 0.5 * vp.w + sp.y);
+                pp.x = vp.pixelsize * (j - 0.5 * vp.h + sp.x);
+                pp.y = vp.pixelsize * (i - 0.5 * vp.w + sp.y);
 
                 ray.origin = Point<T>(pp.x,pp.y,zw);
                 color     += tracer->traceRay(ray);
-            
             }
 
             color /= vp.numsamples;
@@ -96,7 +95,7 @@ void
 World<T>::writeScreen(void)
 {
     vtkImageData *image = vtkImageData::New();
-    image->SetDimensions(200,200,1);
+    image->SetDimensions(vp.w,vp.h,1);
     image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
