@@ -20,6 +20,7 @@ struct Point{
 
     Point(void) : x(0), y(0), z(0) {}
     Point(const T a) : x(a), y(a), z(a) {} 
+    Point(const T x, const T y) : x(x), y(y), z(0) {}
     Point(const T x, const T y, const T z) : x(x), y(y), z(z) {}
     Point(const Point<T>&);
 
