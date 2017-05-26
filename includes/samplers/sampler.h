@@ -19,6 +19,8 @@ class Sampler{
         virtual void        generateSamples(void) = 0;
                 void        setupShuffledIndices(void);
                 Point<T>    sampleUnitSquare(void);
+                Point<T>    sampleUnitDisk(void);
+                Point<T>    sampleHemisphere(void);
                 Sampler<T>& operator=(const Sampler<T>&); 
         virtual Sampler<T>* clone(void) const = 0;
 
@@ -125,6 +127,26 @@ Sampler<T>::sampleUnitSquare(void)
         jump = (rand() % numsets) * numsamples;	
 
     return (samples[jump + count++ % numsamples]);	
+} 
+
+template <typename T>
+Point<T>
+Sampler<T>::sampleUnitDisk(void) 
+{
+    if (count % numsamples == 0)
+        jump = (rand() % numsets) * numsamples;	
+
+    return (disksamples[jump + count++ % numsamples]);	
+} 
+
+template <typename T>
+Point<T>
+Sampler<T>::sampleHemisphere(void) 
+{
+    if (count % numsamples == 0)
+        jump = (rand() % numsets) * numsamples;	
+
+    return (hemispheresamples[jump + count++ % numsamples]);	
 } 
 
 template <typename T>
