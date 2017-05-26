@@ -5,18 +5,22 @@ template <typename T>
 struct ViewPlane{
         int h;
         int w;
+        int numsamples;
         T   s;
         T   gamma; 
         T   invGamma;
         T   pixelSize;
         
-        Color<T>* buffer;
+        Color<T>*   buffer;
+        Sampler<T>* sampler;
 
         ViewPlane(void);
         ViewPlane(int, int); 
         
         void resize(int,int);
         void setPixel(int, int, Color<T>&);
+        void setSampler(Sampler<T>*);
+//        void setSamples(Sampler<T>&);
 };
 
 template <typename T>
@@ -67,5 +71,35 @@ ViewPlane<T>::setPixel(int i, int j, Color<T>& in)
         buffer[(w*j+i)][k] = std::min(255.0,in[k]*255.0); 
     
 }
+
+template <typename T>
+void
+ViewPlane<T>::setSampler(Sampler<T>* sp)
+{
+    if(sampler){
+        delete sampler;
+        sampler = nullptr;
+    }
+    
+    numsamples = sp->getNumSamples();
+    sampler = sp;
+}
+
+/*template <typename T>
+void
+ViewPlant<T>::setSamples(const int n)
+{
+    numsamples = n;
+    
+    if(sampler){
+        delete sampler;
+        sampler = nullptr;
+    }
+    
+    if(numsamples > 1)
+        sampler = new MultiJittered(numsamples);
+    else
+        sampler = new Regular(1);
+}*/
 
 #endif

@@ -6,6 +6,8 @@
 #include <vtkImageData.h> 
 
 #include <multipleobjects.h>
+#include <sampler.h>
+#include <jittered.h>
 #include <constants.h>
 #include <viewplane.h>
 #include <normal.h>
@@ -43,7 +45,8 @@ typedef World<double> Worldd;
 template <typename T>
 World<T>::World(void)
 {
-    vp.resize(200,200);
+    vp.resize(400,400);
+    vp.setSampler(new Jittered<T>(25));
 
     background = black; 
     tracer =  new MultipleObjects<T>(this); 
@@ -61,6 +64,8 @@ void
 World<T>::render(void)
 {
     Color<T> color;
+    Point<T> sp;
+    Point<T> pp;
     Ray<T>   ray;
     T        zw, x, y;
     
@@ -69,13 +74,19 @@ World<T>::render(void)
     ray.direction = Vector<T>(0,0,-1);
     for(int i = 0; i < vp.w; i++)
         for(int j = 0; j < vp.h; j++){
+            color = black;
 
-            x = vp.s * (j - 0.5 * (vp.h - 1.0));
-            y = vp.s * (i - 0.5 * (vp.w - 1.0));
+            for(int k = 0; k < vp.numsamples; j++){
+                sp = vp.sampler->sampleUnitSquare();
+                pp.x = vp.s * (j - 0.5 * vp.h + sp.x);
+                pp.y = vp.s * (i - 0.5 * vp.w + sp.y);
 
-            ray.origin = Point<T>(x,y,zw);
-            color      = tracer->traceRay(ray);
+                ray.origin = Point<T>(pp.x,pp.y,zw);
+                color     += tracer->traceRay(ray);
             
+            }
+
+            color /= vp.numsamples;
             vp.setPixel(i,j,color);
         }
 }

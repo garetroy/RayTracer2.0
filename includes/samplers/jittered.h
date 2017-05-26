@@ -11,6 +11,7 @@ class Jittered: public Sampler<T>{
         Jittered(const int);
         Jittered(const int, const int);
         Jittered(const Jittered<T>&);
+        ~Jittered(void);
         
         Jittered<T>& operator=(const Jittered<T>&);
         
@@ -23,6 +24,10 @@ class Jittered: public Sampler<T>{
 template <typename T>
 Jittered<T>::Jittered(void) :
     Sampler<T>() {}
+
+template <typename T>
+Jittered<T>::Jittered(const int ns) :
+    Sampler<T>(ns) {}
 
 template <typename T>
 Jittered<T>::Jittered(const int numsam, const int m) :
@@ -39,6 +44,10 @@ Jittered<T>::Jittered(const Jittered<T>& j) :
 }
 
 template <typename T>
+Jittered<T>::~Jittered(void)
+{}
+
+template <typename T>
 Jittered<T>&
 Jittered<T>::operator=(const Jittered<T>& rhs)
 {
@@ -48,6 +57,13 @@ Jittered<T>::operator=(const Jittered<T>& rhs)
     Sampler<T>::operator=(rhs);
     
     return *this;
+}
+
+template <typename T>
+Jittered<T>*
+Jittered<T>::clone(void) const
+{
+    return new Jittered(*this);
 }
 
 template <typename T>

@@ -14,12 +14,15 @@ class Sampler{
         Sampler(const int);
         Sampler(const int, const int);
         Sampler(const Sampler<T>&);
+        virtual ~Sampler(void);
 
         virtual void        generateSamples(void) = 0;
                 void        setupShuffledIndices(void);
                 Point<T>    sampleUnitSquare(void);
                 Sampler<T>& operator=(const Sampler<T>&); 
         virtual Sampler<T>* clone(void) const = 0;
+
+                int getNumSamples(void); 
     
     protected:
         int              numsamples;
@@ -73,6 +76,10 @@ Sampler<T>::Sampler(const Sampler<T>& in) :
     samples(in.samples) {}
 
 template <typename T>
+Sampler<T>::~Sampler(void)
+{}
+
+template <typename T>
 Sampler<T>&
 Sampler<T>::operator=(const Sampler<T>& rhs)
 {
@@ -114,5 +121,12 @@ Sampler<T>::sampleUnitSquare(void)
         jump = (rand() % numsets) * numsamples;	
 
     return (samples[jump + count++ % numsamples]);	
+} 
+
+template <typename T>
+int
+Sampler<T>::getNumSamples(void)
+{
+    return numsamples;
 } 
 #endif
