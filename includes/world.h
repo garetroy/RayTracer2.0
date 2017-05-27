@@ -8,6 +8,8 @@
 #include <multipleobjects.h>
 #include <sampler.h>
 #include <multijittered.h>
+#include <pinhole.h>
+#include <camera.h>
 #include <regular.h>
 #include <jittered.h>
 #include <constants.h>
@@ -24,8 +26,9 @@ struct World{
     
     ViewPlane<T>        vp;
     Color<T>            background;
+    Camera<T>*          camera;
     MultipleObjects<T>* tracer;
-    vector<Object<T>*> objects;
+    vector<Object<T>*>  objects;
     
     World(void);
     World(ViewPlane<T>& in);
@@ -47,12 +50,13 @@ typedef World<double> Worldd;
 template <typename T>
 World<T>::World(void)
 {
-    vp.resize(400,400);
+    vp.resize(1000,1000);
     //vp.setSampler(new Jittered<T>(25));
     vp.setSamples(25);
 
     background = black; 
     tracer =  new MultipleObjects<T>(this); 
+    camera = new Pinhole<T>();
 }
 
 template <typename T>
@@ -66,6 +70,11 @@ template <typename T>
 void
 World<T>::render(void)
 {
+    if(camera != nullptr){
+        camera->renderScene(*this);
+        return;
+    }
+
     Color<T> color;
     Point<T> sp;
     Point<T> pp;
@@ -80,7 +89,7 @@ World<T>::render(void)
             color = black;
 
             for(int k = 0; k < vp.numsamples; k++){
-                sp = vp.sampler->sampleUnitSquare();
+                sp   = vp.sampler->sampleUnitSquare();
                 pp.x = vp.pixelsize * (j - 0.5 * vp.h + sp.x);
                 pp.y = vp.pixelsize * (i - 0.5 * vp.w + sp.y);
 

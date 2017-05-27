@@ -84,10 +84,10 @@ ViewPlane<T>::setSamples(const int n)
 {
     numsamples = n;
     
-    if(sampler){
-        delete sampler;
-        sampler = nullptr;
-    }
+    //if(sampler == nullptr){
+    //    delete sampler;
+    //    sampler = nullptr;
+    //}
     
     if(numsamples > 1)
         sampler = new MultiJittered<T>(numsamples);

@@ -54,7 +54,7 @@ Camera<T>::Camera(const Camera<T>& c) :
     u(c.u),
     v(c.v),
     w(c.w),
-    exposuretime(c.exposure_time) {}
+    exposuretime(c.exposuretime) {}
 
 template <typename T>
 Camera<T>*
