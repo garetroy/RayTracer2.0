@@ -4,9 +4,13 @@
 #include <iostream>
 #include <vtkPNGWriter.h>
 #include <vtkImageData.h> 
+#include <omp.h>
+#include <cilk/cilk.h>
+#include <thread>
 
 #include <multipleobjects.h>
 #include <sampler.h>
+#include <triangle.h>
 #include <multijittered.h>
 #include <pinhole.h>
 #include <camera.h>
@@ -20,6 +24,7 @@
 #include <object.h> 
 #include <point.h>
 #include <ray.h>
+#include <light.h>
 
 template <typename T>
 struct World{
@@ -29,14 +34,18 @@ struct World{
     Camera<T>*          camera;
     MultipleObjects<T>* tracer;
     vector<Object<T>*>  objects;
+    Light<T>*           ambient;
+    vector<Light<T>*>   lights;
     
     World(void);
     World(ViewPlane<T>& in);
+    ~World(void);
     
     void        render(void);
     void        writeScreen(void);
     void        addObject(Object<T>*);
     ShadeRec<T> hitObject(const Ray<T>&);
+    void        addLight(Light<T>*);
 
     friend ostream &operator<<(ostream& os, const World<T>&in)
     {
@@ -55,8 +64,9 @@ World<T>::World(void)
     vp.setSamples(25);
 
     background = black; 
-    tracer =  new MultipleObjects<T>(this); 
-    camera = new Pinhole<T>();
+    tracer  =  new MultipleObjects<T>(this); 
+    camera  = new Pinhole<T>();
+    ambient = new Ambient<T>();
 }
 
 template <typename T>
@@ -64,6 +74,12 @@ World<T>::World(ViewPlane<T>& in)
 {
     vp(in);
     background = black; 
+}
+
+template <typename T>
+World<T>::~World(void)
+{
+    delete ambient;
 }
 
 template <typename T>
@@ -100,6 +116,7 @@ World<T>::render(void)
             color /= vp.numsamples;
             vp.setPixel(i,j,color);
         }
+
 }
 
 template <typename T>
@@ -111,6 +128,7 @@ World<T>::writeScreen(void)
     image->AllocateScalars(VTK_UNSIGNED_CHAR, 3);
     unsigned char *buffer = 
         (unsigned char *) image->GetScalarPointer(0,0,0);
+    #pragma omp parallel for 
     for(int i = 0; i < vp.h*vp.w; i++){
         buffer[3*i]     = (unsigned char)vp.buffer[i][0];
         buffer[3*i+1]   = (unsigned char)vp.buffer[i][1];
@@ -123,7 +141,6 @@ World<T>::writeScreen(void)
     writer->Write();
     writer->Delete();
     image->Delete();
-
 }
 
 template <typename T>
@@ -138,17 +155,36 @@ ShadeRec<T>
 World<T>::hitObject(const Ray<T>& in)
 {
     ShadeRec<T> sr(*this); 
-    T t;
-    T tmin              = khugevalue;
-    int num_objects     = objects.size();
+    T         t;
+    T         tmin         = khugevalue;
+    int       num_objects  = objects.size();
+    Normal<T> normal;
+    Point<T>  localhitpoint;
+
     for (int j = 0; j < num_objects; j++)
             if (objects[j]->hit(in, t, sr) && (t < tmin)) {
                     sr.hitobject   = true;
                     tmin           = t;
-                    sr.color       = objects[j]->getColor();
+                    sr.material    = objects[j]->getMaterial();
+                    sr.hitpoint    = in.origin + t * in.direction;
+                    normal         = sr.normal;
+                    localhitpoint  = sr.localhitpoint;
             }  
 
+    if(sr.hitobject){
+        sr.t             = tmin;
+        sr.normal        = normal;
+        sr.localhitpoint = localhitpoint;
+    }
+
     return sr;   
+}
+
+template <typename T>
+inline void 
+World<T>::addLight(Light<T>* in)
+{
+    lights.push_back(in);
 }
 
 #endif
