@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <point.h>
 
+using std::vector;
+
 template <typename T>
 class Sampler{
     

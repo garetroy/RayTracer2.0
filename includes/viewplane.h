@@ -3,12 +3,13 @@
 
 template <typename T>
 struct ViewPlane{
-        int h;
-        int w;
-        int numsamples;
-        T   gamma; 
-        T   invgamma;
-        T   pixelsize;
+        int  h;
+        int  w;
+        int  numsamples;
+        T    gamma; 
+        T    invgamma;
+        T    pixelsize;
+        bool showOutofGamut;
         
         Color<T>*   buffer;
         Sampler<T>* sampler;
@@ -17,7 +18,7 @@ struct ViewPlane{
         ViewPlane(int, int); 
         
         void resize(int,int);
-        void setPixel(int, int, Color<T>&);
+        void setPixel(const int,const int, Color<T>&);
         void setSampler(Sampler<T>*);
         void setSamples(const int);
 };
@@ -31,6 +32,8 @@ ViewPlane<T>::ViewPlane(void)
     pixelsize = 1.0;
     gamma     = 1.0;
 
+    showOutofGamut = false;
+
     buffer = nullptr;
 }
 
@@ -42,6 +45,8 @@ ViewPlane<T>::ViewPlane(int _h, int _w)
 
     pixelsize  = 1.0;
     gamma      = 1.0; 
+
+    showOutofGamut = false;
     
     buffer = new Color<T>[h*w];
 }    
@@ -60,13 +65,24 @@ ViewPlane<T>::resize(int _h, int _w)
 
 template <typename T>
 void
-ViewPlane<T>::setPixel(int i, int j, Color<T>& in)
+ViewPlane<T>::setPixel(const int i,const int j, Color<T>& in)
 {
     if(i+j*w > w*h)
         return;
 
+    Color<T> color;
+
+    if(showOutofGamut)
+        color = in.clamp();
+    else
+        color = in.maxToOne();
+
+    if(gamma != 1.0)
+        color = color.powc(invgamma);
+        
+
     for(int k = 0; k < 3; k++)
-        buffer[(w*j+i)][k] = std::min(255.0,in[k]*255.0); 
+        buffer[(w*j+i)][k] = std::min(255.0,color[k]*255.0); 
     
 }
 

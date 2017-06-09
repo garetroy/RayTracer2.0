@@ -9,6 +9,7 @@
 #include <thread>
 
 #include <multipleobjects.h>
+#include <material.h>
 #include <sampler.h>
 #include <triangle.h>
 #include <multijittered.h>
@@ -25,6 +26,7 @@
 #include <point.h>
 #include <ray.h>
 #include <light.h>
+#include <raycast.h>
 
 template <typename T>
 struct World{
@@ -32,7 +34,7 @@ struct World{
     ViewPlane<T>        vp;
     Color<T>            background;
     Camera<T>*          camera;
-    MultipleObjects<T>* tracer;
+    Tracer<T>*          tracer;
     vector<Object<T>*>  objects;
     Light<T>*           ambient;
     vector<Light<T>*>   lights;
@@ -64,7 +66,7 @@ World<T>::World(void)
     vp.setSamples(25);
 
     background = black; 
-    tracer  =  new MultipleObjects<T>(this); 
+    tracer  =  new RayCast<T>(this); 
     camera  = new Pinhole<T>();
     ambient = new Ambient<T>();
 }
