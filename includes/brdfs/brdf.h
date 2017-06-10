@@ -35,7 +35,7 @@ template <typename T>
 BRDF<T>::BRDF(const BRDF<T>& b)
 {
     if(b.sampler != nullptr)
-        sampler = b.sample->clone();
+        sampler = b.sampler->clone();
     else
         sampler = nullptr;
 }

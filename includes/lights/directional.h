@@ -13,9 +13,9 @@ class Directional : public Light<T>{
         Directional(const Directional<T>&);
         ~Directional(void);
         
-        virtual Directional<T>* clone(void) const = 0;
+        virtual Directional<T>* clone(void) const;
                 Directional<T>& operator=(const Directional<T>&);
-        virtual Vector<T> getDirection(ShadeRec<T>&);
+        virtual Vector<T> getDirections(ShadeRec<T>&);
         virtual Color<T>  L(ShadeRec<T>&);
                 void      scaleRadience(const T);
                 void      setColor(const Color<T>&);
@@ -70,7 +70,7 @@ Directional<T>::operator=(const Directional<T>& rhs)
 
 template <typename T>
 Vector<T>
-Directional<T>::getDirection(ShadeRec<T>& in)
+Directional<T>::getDirections(ShadeRec<T>& in)
 {
     return dir;
 }

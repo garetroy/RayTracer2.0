@@ -2,6 +2,7 @@
 #define _GLOSSY_H_
 
 #include <brdf.h>
+#include <multijittered.h>
 
 template <typename T>
 class GlossySpecular: public BRDF<T>{

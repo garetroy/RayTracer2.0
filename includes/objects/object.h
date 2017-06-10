@@ -27,14 +27,17 @@ class Object{
         
 
         //Setters/Getters
-        void     setColor(const Color<T>& c);
-        void     setColor(const T r, const T g, const T b);
-        Color<T> getColor(void);
+        void         setColor(const Color<T>& c);
+        void         setColor(const T r, const T g, const T b);
+        Color<T>     getColor(void);
+        Material<T>* getMaterial(void) const;
+        virtual void setMaterial(Material<T>*);
 
         virtual void           setBbox(void);
         virtual BoundingBox<T> getBbox(void);
          
     protected:
+       mutable Material<T>* material;
        Color<T>   color;
        Object<T>& operator=(const Object<T>& rhs);
     
@@ -49,10 +52,12 @@ typedef Object<double> Objectd;
 
 template <typename T>
 Object<T>::Object(void) :
+    material(nullptr),
     color(red) {}
 
 template <typename T>
 Object<T>::Object(const Object<T>& object) :
+    material(object.material),
     color(object.color) {}
 
 template <typename T>
@@ -96,6 +101,20 @@ inline Color<T>
 Object<T>::getColor(void)
 {
     return color;
+}
+
+template <typename T>
+Material<T>*
+Object<T>::getMaterial(void) const
+{
+    return material;
+}
+
+template <typename T>
+inline void
+Object<T>::setMaterial(Material<T>* in) 
+{
+    material = in;
 }
 
 template <typename T>
