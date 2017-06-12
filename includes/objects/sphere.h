@@ -47,12 +47,14 @@ const T Sphere<T>::kEpsilon = 0.001;
 
 template <typename T>
 Sphere<T>::Sphere(void) :
+    Object<T>(),
     center(Point<T>(0.0)),
     radius(1.0) {}
 
 template <typename T>
 Sphere<T>::Sphere(Point<T>& c, T r)
 {
+    Object<T>(),
     center.x = c.x;
     center.y = c.y;
     center.z = c.z;
