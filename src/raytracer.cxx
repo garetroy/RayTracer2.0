@@ -9,6 +9,7 @@
 #include <plane.h>
 #include <sphere.h>
 #include <world.h>
+#include <jittered.h>
 
 using namespace std;
 

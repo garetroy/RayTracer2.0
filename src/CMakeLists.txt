@@ -19,10 +19,12 @@ INCLUDE_DIRECTORIES(${INCLUDE_DIR}/objects)
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/toolbox)
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/tracers)
 INCLUDE_DIRECTORIES(${INCLUDE_DIR}/samplers)
+INCLUDE_DIRECTORIES(${INCLUDE_DIR}/cameras)
+INCLUDE_DIRECTORIES(${INCLUDE_DIR}/brdfs)
 
 # Setup project source compilation
 ADD_EXECUTABLE(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.${PROJ_EXT}")
-ADD_DEFINITIONS(-std=c++11 -fmax-errors=${MAX_ERR})
+ADD_DEFINITIONS(-std=c++14 -fmax-errors=${MAX_ERR})
 IF (DEBUG)
   MESSAGE("Generating debug version")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -DDEBUG=true")
@@ -32,7 +34,7 @@ ELSE ()
 ENDIF ()
 
 # Enable this if VTK is needed
-SET(VTK_DIR "/home/groberts/Projects/RayTracer2.0/VTK-6.3.0")
+SET(VTK_DIR "/Users/garett/Projects/RayTracer2.0/VTK-6.3.0")
 FIND_PACKAGE(VTK REQUIRED)
 INCLUDE(${VTK_USE_FILE})
 
