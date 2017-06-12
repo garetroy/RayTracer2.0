@@ -66,7 +66,7 @@ World<T>::World(void)
     vp.setSamples(25);
 
     background = black; 
-    tracer  =  new RayCast<T>(this); 
+    tracer  = new RayCast<T>(this); 
     camera  = new Pinhole<T>();
     ambient = new Ambient<T>();
 }
@@ -163,7 +163,6 @@ World<T>::hitObject(const Ray<T>& in)
     Normal<T> normal;
     Point<T>  localhitpoint;
 
-    //Problem in here?
     for (int j = 0; j < num_objects; j++)
             if (objects[j]->hit(in, t, sr) && (t < tmin)) {
                     sr.hitobject   = true;

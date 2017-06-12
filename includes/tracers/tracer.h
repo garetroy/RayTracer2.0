@@ -16,9 +16,10 @@ class Tracer{
         Tracer(World<T>* world);
         virtual ~Tracer(void);
     
-        virtual Color<T> traceRay(const Ray<T>& ray) const;
-        virtual Color<T> traceRay(const Ray<T>& ray,
-                                const int depth) const;
+        virtual Color<T> traceRay(const Ray<T>&) const;
+        virtual Color<T> traceRay(const Ray<T>,
+                                const int) const;
+        virtual Color<T> traceRay(const Ray<T>, T&,const int) const;
 
     protected:
         World<T>* world;
@@ -49,7 +50,14 @@ Tracer<T>::traceRay(const Ray<T>& ray) const
 
 template <typename T>
 Color<T>
-Tracer<T>::traceRay(const Ray<T>& ray, const int depth) const 
+Tracer<T>::traceRay(const Ray<T> ray, const int depth) const 
+{
+    return black;
+}
+
+template <typename T>
+Color<T>
+Tracer<T>::traceRay(const Ray<T> ray,T& tmin, const int depth) const 
 {
     return black;
 }

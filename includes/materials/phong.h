@@ -10,7 +10,7 @@ class Phong : public Material<T>{
     public:
         Phong(void);
         Phong(const Phong<T>&);
-        ~Phong(void);
+        virtual ~Phong(void);
 
         virtual Phong<T>* clone(void) const;
                 Phong<T>& operator=(const Phong<T>&);
@@ -92,7 +92,7 @@ template <typename T>
 inline void
 Phong<T>::setkd(const T c)
 {
-    diffuse->setcd(c);
+    diffuse->setkd(c);
 }
 
 template <typename T>

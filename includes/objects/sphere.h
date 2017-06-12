@@ -47,25 +47,32 @@ const T Sphere<T>::kEpsilon = 0.001;
 
 template <typename T>
 Sphere<T>::Sphere(void) :
-    Object<T>(),
     center(Point<T>(0.0)),
-    radius(1.0) {}
+    radius(1.0) 
+{
+    this.color(0.0);
+    this->material(nullptr);
+}
 
 template <typename T>
 Sphere<T>::Sphere(Point<T>& c, T r)
 {
-    Object<T>();
+    this->material = nullptr;
+
+    for(int i = 0; i < 3; i++)
+        this->color[i] = 0.0;
+
     center.x = c.x;
     center.y = c.y;
-    center.z = c.z;
-    
+    center.z = c.z; 
     radius = r;
 }
 
 template <typename T>
 Sphere<T>::Sphere(const Sphere<T>& rhs)
 {
-    Object<T>();
+    this->color = rhs.color;
+    this->material = nullptr;
     center.x = rhs.center.x;
     center.y = rhs.center.y;
     center.z = rhs.center.z;

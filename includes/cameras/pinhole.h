@@ -1,5 +1,6 @@
 #ifndef _PINHOLE_H_
 #define _PINHOLE_H_
+#include <omp.h>
 
 #include <vector.h>
 #include <color.h>
@@ -104,7 +105,7 @@ Pinhole<T>::renderScene(World<T>& w)
                     pp.y = vp.pixelsize * ( i - 0.5 * vp.w + (p + 0.5) / n);
     
                     ray.direction = rayDirection(pp);
-                    color        += w.tracer->traceRay(ray);
+                    color        += w.tracer->traceRay(ray,0);
                 }
 
         color /= vp.numsamples;

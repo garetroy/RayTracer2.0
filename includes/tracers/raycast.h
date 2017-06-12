@@ -10,7 +10,7 @@ class RayCast : public Tracer<T>{
 
     public:
         RayCast(World<T>*);
-        virtual Color<T> traceRay(const Ray<T>&, const int depth) const;
+        virtual Color<T> traceRay(const Ray<T>, const int depth) const;
 
     private:
         RayCast(void);
@@ -23,10 +23,11 @@ RayCast<T>::RayCast(void) :
 template <typename T>
 RayCast<T>::RayCast(World<T>* in) :
     Tracer<T>(in) {}
+    
 
 template <typename T>
 Color<T>
-RayCast<T>::traceRay(const Ray<T>& in, const int depth) const
+RayCast<T>::traceRay(const Ray<T> in, const int depth) const
 {
     ShadeRec<T> sr(this->world->hitObject(in));
 

@@ -40,6 +40,8 @@ struct Color{
 
     inline T         average(void) const;
            Color<T>  powc(T) const;
+           Color<T>  maxToOne(void) const;
+           Color<T>  clamp(void) const;
 
     friend ostream &operator<<(ostream &os, const Color& in)
     {
@@ -256,6 +258,30 @@ Color<T>::powc(T p) const
     return Color<T>(pow(r,p),pow(g,p),pow(b,p));
 }
 
+template <typename T>
+Color<T>
+Color<T>::maxToOne(void) const
+{
+    T max = std::max(r,std::min(g,b));  
+
+    if(max > 1.0)
+        return Color<T>(r/max,g/max,b/max);
+    else
+        return Color<T>(r,g,b);
+}
+
+template <typename T>
+Color<T>
+Color<T>::clamp(void) const
+{
+    if(r > 1.0 || g > 1.0 || b > 1.0) {
+        return Color<T>(1.0,0.0,0.0);
+    } else {
+        return Color<T>(r,g,b);
+    }
+}
+    
+    
 template <typename T>
 inline Color<T>
 operator+(const T a, const Color<T>& c)

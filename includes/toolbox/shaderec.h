@@ -69,10 +69,10 @@ ShadeRec<T>::ShadeRec(const ShadeRec& sr)
 template <typename T>
 ShadeRec<T>::~ShadeRec(void)
 {
-    if(material){
-        delete material;
-        material = nullptr;
-    }
+    //if(material){
+    //    delete material;
+    //    material = nullptr;
+    //}
 }
 
 #endif
