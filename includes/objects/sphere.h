@@ -54,7 +54,7 @@ Sphere<T>::Sphere(void) :
 template <typename T>
 Sphere<T>::Sphere(Point<T>& c, T r)
 {
-    Object<T>(),
+    Object<T>();
     center.x = c.x;
     center.y = c.y;
     center.z = c.z;
@@ -65,6 +65,7 @@ Sphere<T>::Sphere(Point<T>& c, T r)
 template <typename T>
 Sphere<T>::Sphere(const Sphere<T>& rhs)
 {
+    Object<T>();
     center.x = rhs.center.x;
     center.y = rhs.center.y;
     center.z = rhs.center.z;
