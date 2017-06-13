@@ -20,6 +20,7 @@ class Object{
         virtual Object<T>* clone(void) const = 0;
         virtual bool hit(const Ray<T>&, T&,
                          ShadeRec<T>&) const = 0;
+        virtual bool shadowHit(const Ray<T>&, T&)const = 0;
         
         virtual Point<T> sample(void);
         virtual void     addObject(Object<T>* obj);

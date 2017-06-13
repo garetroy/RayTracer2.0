@@ -20,6 +20,7 @@ class Sphere: public Object<T>{
         virtual Sphere<T>* clone(void) const;
                 Sphere<T>& operator=(const Sphere<T>&);
         virtual bool hit(const Ray<T>&, T&, ShadeRec<T>&) const;
+        virtual bool shadowHit(const Ray<T>&, T&) const;
 
         //Getter Setters
         void setCenter(const Point<T>&);
@@ -138,6 +139,14 @@ Sphere<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
         }
 
         return false;        
+}
+
+template <typename T>
+bool
+Sphere<T>::shadowHit(const Ray<T>& in, T& t) const
+{
+    t = 0; 
+    return false;
 }
 
 template <typename T>

@@ -22,6 +22,7 @@ class Triangle: public Object<T>{
         virtual BoundingBox<T> getBBox(void);
                 void           computeNormal(void);
         virtual bool           hit(const Ray<T>&, T&, ShadeRec<T>&) const;
+        virtual bool           shadowHit(const Ray<T>&, T&) const;
 
     private:
         Point<T>  v0, v1, v2;
@@ -148,5 +149,13 @@ Triangle<T>::hit(const Ray<T>& ray, T& tmin, ShadeRec<T>& sr) const
     sr.localhitpoint    = ray.origin + t * ray.direction;    
 
     return true;       
+}
+
+template <typename T>
+bool
+Triangle<T>::shadowHit(const Ray<T>& in, T& t) const
+{
+    t = 0; 
+    return false;
 }
 #endif
