@@ -17,6 +17,7 @@ class Directional : public Light<T>{
                 Directional<T>& operator=(const Directional<T>&);
         virtual Vector<T> getDirections(ShadeRec<T>&);
         virtual Color<T>  L(ShadeRec<T>&);
+        virtual bool      inShadow(const Ray<T>&,const ShadeRec<T>&) const;
                 void      scaleRadience(const T);
                 void      setColor(const Color<T>&);
                 void      setColor(const T);
@@ -87,6 +88,21 @@ inline void
 Directional<T>::scaleRadience(const T a)
 {
     ls = a;
+}
+
+template <typename T>
+bool
+Directional<T>::inShadow(const Ray<T>& in, const ShadeRec<T>& sr) const 
+{
+    T   t;
+    int num = sr.w.objects.size();
+    T   d   = dir.distance(in.origin);
+    
+    for(int i = 0; i < num; i++)
+        if(sr.w.objects[i]->shadowHit(in,t) && t < d)
+            return true;
+
+    return false;
 }
 
 template <typename T>

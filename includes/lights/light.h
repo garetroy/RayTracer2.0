@@ -21,6 +21,8 @@ class Light{
                 Light<T>& operator=(const Light<T>&);
         virtual Vector<T> getDirections(ShadeRec<T>&) = 0; 
         virtual Color<T>  L(ShadeRec<T>&);
+        virtual bool      castsShade(void);
+        virtual bool      inShadow(const Ray<T>&, const ShadeRec<T>&) const;
     
 };
 
@@ -52,4 +54,17 @@ Light<T>::L(ShadeRec<T> &in)
     return black;
 }
 
+template <typename T>
+bool
+Light<T>::castsShade(void)
+{
+    return false;
+}
+
+template <typename T>
+bool
+Light<T>::inShadow(const Ray<T>& in, const ShadeRec<T>& sr) const
+{
+    return false;
+}
 #endif

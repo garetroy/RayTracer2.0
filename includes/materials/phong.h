@@ -19,9 +19,11 @@ class Phong : public Material<T>{
         //getters and setters
         void setka(const T);
         void setkd(const T);
+        void setks(const T);
         void setcd(const Color<T>);
         void setcd(const T, const T, const T);
         void setcd(const T);
+        void setexp(const T);
 
     protected:
         Lambertian<T>*     ambient;
@@ -69,13 +71,22 @@ Phong<T>::shade(ShadeRec<T>& in)
     Vector<T> wo = -in.ray.direction;
     Color<T>  L  = ambient->rho(in,wo) * in.w.ambient->L(in);
     int       nl = in.w.lights.size();
+    bool      is = false; //in-shadows
 
     for(int i = 0; i < nl; i++){
         Vector<T> wi = in.w.lights[i]->getDirections(in);
         T         nw = in.normal * wi;
-        if(nw > 0.0)
-            L += (diffuse->f(in,wo,wi) + specular->f(in,wo,wi)) *
+        if(nw > 0.0){
+            is = false; 
+            
+            if(in.w.lights[i]->castsShade()){
+                Ray<T> shadowRay(in.hitpoint,wi);
+                is = in.w.lights[i]->inShadow(shadowRay,in);
+            }
+            if(!is)
+                L += (diffuse->f(in,wo,wi) + specular->f(in,wo,wi)) *
                   in.w.lights[i]->L(in) * nw; 
+        }
     }
     
     return L;
@@ -117,5 +128,19 @@ Phong<T>::setcd(const T c)
 {
     ambient->setcd(c);
     diffuse->setcd(c);
+}
+
+template <typename T>
+inline void
+Phong<T>::setks(T in)
+{
+    specular->setks(in);
+}    
+
+template <typename T>
+inline void
+Phong<T>::setexp(T in)
+{
+    specular->setks(in);
 }
 #endif
